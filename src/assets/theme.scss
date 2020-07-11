@@ -1,0 +1,14 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import url('//fonts.googleapis.com/css?family=Roboto:300,400,500');
+@import url('//fonts.googleapis.com/icon?family=Material+Icons');
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$viewpoint-app-primary: mat-palette($mat-blue);
+$viewpoint-app-accent:  mat-palette($mat-yellow);
+$viewpoint-app-warn:    mat-palette($mat-deep-orange);
+
+$viewpoint-app-theme: mat-light-theme($viewpoint-app-primary,$viewpoint-app-accent,$viewpoint-app-warn);
+
+@include angular-material-theme($viewpoint-app-theme);
