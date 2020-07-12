@@ -8,7 +8,6 @@
 $viewpoint-app-primary: mat-palette($mat-blue);
 $viewpoint-app-accent:  mat-palette($mat-yellow);
 $viewpoint-app-warn:    mat-palette($mat-deep-orange);
-
 $viewpoint-app-theme: mat-light-theme($viewpoint-app-primary,$viewpoint-app-accent,$viewpoint-app-warn);
-
 @include angular-material-theme($viewpoint-app-theme);
+

@@ -1,0 +1,25 @@
+<ng-container>
+  <div class="poll-layout">
+    <mat-card *ngFor="let poll of pollList$ |async" class="poll-card">
+      <mat-card-header>
+        <mat-card-title>{{poll.title}}</mat-card-title>
+        <mat-card-subtitle *ngIf="poll?.description">{{poll.description}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>
+          <mat-icon aria-hidden="false" aria-label="info" color="primary">info</mat-icon>
+        </button>
+        <button mat-button>
+          <mat-icon aria-hidden="false" aria-label="result" color="primary">poll</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="poll-card parent">
+      <button mat-button class="child">
+        <mat-icon aria-hidden="false" aria-label="add new">add_circle_outline</mat-icon>
+      </button>
+    </mat-card>
+  </div>
+</ng-container>
