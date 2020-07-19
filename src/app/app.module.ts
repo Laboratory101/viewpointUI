@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavBarComponent } from '../shared-resources/components/navbar/navbar.component';
 import { MaterialModule } from '../shared-resources/material.module';
 import { HttpInterceptorService } from '../shared-resources/services/http-interceptor.service';
+import { PopupMessageComponent } from '../shared-resources/components/pop-up-message/popup-message.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HttpInterceptorService } from '../shared-resources/services/http-interc
     HttpClientModule, MaterialModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
+  entryComponents: [PopupMessageComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
