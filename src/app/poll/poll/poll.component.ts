@@ -15,20 +15,20 @@ export class PollComponent implements OnInit {
   constructor(private pollService: PollService) { }
 
   ngOnInit(): void {
-    // this.pollList$ = this.pollService.fetchAllPolls('');
-    // this.pollList$ = of([
-    //   {
-    //     title:'Test 1',
-    //     description:'Desc of Test 1'
-    //   },
-    //   {
-    //     title:'Test 2',
-    //     description:'Desc of Test 2'
-    //   },
-    //   {
-    //     title:'Test 3'
-    //   }
-    // ])
+    this.pollList$ = this.pollService.fetchAllPolls('');
+    this.pollList$ = of([
+      {
+        title: 'Test 1',
+        description: 'Desc of Test 1'
+      },
+      {
+        title: 'Test 2',
+        description: 'Desc of Test 2'
+      },
+      {
+        title: 'Test 3'
+      }
+    ]);
   }
 
 }

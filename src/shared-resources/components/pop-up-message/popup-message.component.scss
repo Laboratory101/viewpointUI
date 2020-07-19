@@ -1,0 +1,14 @@
+@import "~@angular/material/theming";
+@import '../../../assets/theme.scss';
+
+.error-snack-bar{
+    background-color: mat-color($viewpoint-app-warn) !important;
+}
+
+.info-snack-bar{
+    background-color: mat-color($viewpoint-app-accent) !important;  
+}
+
+.success-snack-bar{
+    background-color: mat-color($viewpoint-app-primary) !important;
+}

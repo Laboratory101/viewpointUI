@@ -5,15 +5,16 @@
 }
 
 .poll-card {
-    max-width: 400px;
+    max-width: 350px;
     min-height:100px;
+    position: relative;
   }
 
  .poll-layout{
      display:grid;
-     grid-template-columns: repeat(2,1fr);
-     row-gap: 24px;
-     padding: 0 5%;
+     grid-template-columns: repeat(3,1fr);
+     gap: 24px;
+     padding: 3%;
  }
 
  .parent {
@@ -25,4 +26,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(3);
+  }
+
+  .action-button{
+    position: absolute;
+    bottom: 15%;
   }
