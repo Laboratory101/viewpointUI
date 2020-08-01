@@ -8,10 +8,10 @@
       <mat-card-content>
       </mat-card-content>
       <mat-card-actions class="action-button">
-        <button mat-button>
+        <button mat-button matTooltip="Poll information" (click)="getPollInfo(poll)">
           <mat-icon aria-hidden="false" aria-label="info" color="primary">info</mat-icon>
         </button>
-        <button mat-button>
+        <button mat-button matTooltip="Poll results">
           <mat-icon aria-hidden="false" aria-label="result" color="primary">poll</mat-icon>
         </button>
       </mat-card-actions>

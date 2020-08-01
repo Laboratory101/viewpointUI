@@ -12,7 +12,7 @@ import { PopupMessageComponent } from '../shared-resources/components/pop-up-mes
 
 @NgModule({
   declarations: [
-    AppComponent, NavBarComponent
+    AppComponent, NavBarComponent, PopupMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +20,7 @@ import { PopupMessageComponent } from '../shared-resources/components/pop-up-mes
     BrowserAnimationsModule,
     HttpClientModule, MaterialModule
   ],
-  providers: [ { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   entryComponents: [PopupMessageComponent],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,47 @@
+<ng-container>
+  <form [formGroup]="pollForm" autocomplete="off" (ngSubmit)="savePoll()" class="poll-form">
+    <div class="left-panel">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input type="text" matInput placeholder="Poll title" formControlName="title" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Author</mat-label>
+        <input type="text" matInput formControlName="author" maxlength="100" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>No of participants</mat-label>
+        <input type="number" matInput formControlName="participantCount" min="4" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Duration</mat-label>
+        <input type="number" matInput formControlName="duration" max="30" />
+      </mat-form-field>
+      <ng-container>
+        <mat-label>Privacy type</mat-label>
+        <mat-radio-group matTooltip="Select the poll access type" formControlName="privacyType">
+          <mat-radio-button value="1">Open</mat-radio-button>
+          <mat-radio-button value="2">Secured</mat-radio-button>
+        </mat-radio-group>
+      </ng-container>
+      <ng-container>
+        <mat-label>Result display type</mat-label>
+        <mat-radio-group matTooltip="Select the result display type" formControlName="resultDisplayType">
+          <mat-radio-button value="1">End of poll</mat-radio-button>
+          <mat-radio-button value="2">Real time</mat-radio-button>
+        </mat-radio-group>
+      </ng-container>
+    </div>
+    <div class="right-panel">
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <!-- <input type="text" matInput placeholder="Poll description" formControlName="description" /> -->
+        <textarea matInput placeholder="Poll description" formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="form-action">
+      <button type="submit" mat-raised-button color="primary">Submit</button>
+      <button type="reset" mat-raised-button color="primary">Cancel</button>
+    </div>
+  </form>
+</ng-container>

@@ -1,21 +1,24 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { PollComponent } from './poll/poll.component';
+import { PollBoardComponent } from './poll-board/poll-board.component';
 import { MaterialModule } from 'src/shared-resources/material.module';
+import { PollDetailsComponent } from './poll-details/poll-details.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'viewPoll', pathMatch: 'full' },
-  { path: 'viewPoll', component: PollComponent },
-  { path: '**', redirectTo: '/viewPoll' }
+  { path: '', redirectTo: 'pollboard', pathMatch: 'full' },
+  { path: 'pollboard', component: PollBoardComponent },
+  { path: 'viewpoll', component: PollDetailsComponent },
+  { path: '**', redirectTo: '/pollboard' }
 ];
 
 @NgModule({
-  declarations: [PollComponent],
+  declarations: [PollBoardComponent, PollDetailsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MaterialModule
+    MaterialModule, ReactiveFormsModule, FormsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

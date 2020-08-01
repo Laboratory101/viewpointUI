@@ -1,0 +1,22 @@
+.poll-form{
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
+    grid-template-areas:
+    'left-panel right-panel'
+    'form-action .';
+}
+
+.left-panel{
+    display: grid;
+    grid-area: left-panel;
+}
+
+.right-panel{
+    grid-area: right-panel;
+}
+
+.form-action{
+    grid-area: form-action;
+}
