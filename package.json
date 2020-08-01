@@ -53,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "ng build --aot true"
+      "pre-push": "ng lint && ng build --aot true"
     }
   }
 }
