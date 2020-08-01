@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class PollBoardComponent implements OnInit {
 
   pollList$: Observable<any>;
-  mockHost: string = 'alec';
+  mockHost = 'alec';
 
   constructor(private pollService: PollService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -20,9 +20,9 @@ export class PollBoardComponent implements OnInit {
   }
 
   getPollInfo(pollData: any) {
-    console.log("Activated: ", this.activatedRoute.parent)
-    console.log("URL",this.router.url)
-    this.router.navigate(['./viewpoll'], { relativeTo: this.activatedRoute.parent, state: pollData })
+    console.log('Activated: ', this.activatedRoute.parent);
+    console.log('URL', this.router.url);
+    this.router.navigate(['./viewpoll'], { relativeTo: this.activatedRoute.parent, state: pollData });
   }
 
 }

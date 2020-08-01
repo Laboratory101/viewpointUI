@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {
   MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatProgressSpinnerModule,
-  MatSnackBarModule, MatTooltipModule,MatRadioModule, MatFormFieldModule, MatInputModule
+  MatSnackBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatInputModule
 } from '@angular/material';
 
 
@@ -9,7 +9,7 @@ import {
   declarations: [],
   exports: [
     MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatProgressSpinnerModule,
-    MatSnackBarModule, MatTooltipModule,MatRadioModule,MatFormFieldModule,MatInputModule
+    MatSnackBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatInputModule
   ]
 })
 export class MaterialModule { }

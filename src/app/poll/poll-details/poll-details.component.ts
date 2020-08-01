@@ -27,20 +27,20 @@ export class PollDetailsComponent implements OnInit {
         imgUrl: ['', [this.isURLValid]],
         text: ['', [Validators.minLength(1), Validators.maxLength(50)]],
       })
-    })
+    });
   }
 
   savePoll(): void {
-    console.log("Form: ", this.pollForm.value)
+    console.log('Form: ', this.pollForm.value);
   }
 
   private isURLValid(control: AbstractControl): { [key: string]: boolean | null } {
     if (control.value) {
       if (!validator.isURL(control.value, { protocols: ['http', 'https'] })) {
-        return { invalidURL: true }
+        return { invalidURL: true };
       }
     }
-    return null
+    return null;
   }
 
 }
