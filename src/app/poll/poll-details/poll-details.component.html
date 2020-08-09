@@ -1,9 +1,14 @@
-<ng-container>
+<div class="poll-details">
+  <h3>Set up poll</h3>
   <form [formGroup]="pollForm" autocomplete="off" (ngSubmit)="savePoll()" class="poll-form">
-    <div class="left-panel">
+    <div class="form-fields">
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input type="text" matInput placeholder="Poll title" formControlName="title" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input type="text" matInput placeholder="Poll description" formControlName="description" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Author</mat-label>
@@ -17,31 +22,29 @@
         <mat-label>Duration</mat-label>
         <input type="number" matInput formControlName="duration" max="30" />
       </mat-form-field>
-      <ng-container>
-        <mat-label>Privacy type</mat-label>
-        <mat-radio-group matTooltip="Select the poll access type" formControlName="privacyType">
-          <mat-radio-button value="1">Open</mat-radio-button>
-          <mat-radio-button value="2">Secured</mat-radio-button>
-        </mat-radio-group>
-      </ng-container>
-      <ng-container>
-        <mat-label>Result display type</mat-label>
-        <mat-radio-group matTooltip="Select the result display type" formControlName="resultDisplayType">
-          <mat-radio-button value="1">End of poll</mat-radio-button>
-          <mat-radio-button value="2">Real time</mat-radio-button>
-        </mat-radio-group>
-      </ng-container>
+      <div class="radio-group">
+        <div>
+          <mat-label>Privacy type *</mat-label>
+          <mat-radio-group formControlName="privacyType" required="true">
+            <mat-radio-button value="1">Open</mat-radio-button>
+            <mat-radio-button value="2">Secured</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-label>Result display type *</mat-label>
+          <mat-radio-group formControlName="resultDisplayType" required="true">
+            <mat-radio-button value="1">End of poll</mat-radio-button>
+            <mat-radio-button value="2">Real time</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
     </div>
-    <div class="right-panel">
-      <mat-form-field appearance="outline">
-        <mat-label>Description</mat-label>
-        <!-- <input type="text" matInput placeholder="Poll description" formControlName="description" /> -->
-        <textarea matInput placeholder="Poll description" formControlName="description"></textarea>
-      </mat-form-field>
+    <div class="poll-candidates">
+      <app-poll-candidate [parentForm]="pollForm"></app-poll-candidate>
     </div>
     <div class="form-action">
       <button type="submit" mat-raised-button color="primary">Submit</button>
-      <button type="reset" mat-raised-button color="primary">Cancel</button>
+      <button type="reset" mat-raised-button color="warn" style="margin-left: 16px;">Cancel</button>
     </div>
   </form>
-</ng-container>
+</div>

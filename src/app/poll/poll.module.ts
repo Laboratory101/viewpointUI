@@ -5,6 +5,7 @@ import { PollBoardComponent } from './poll-board/poll-board.component';
 import { MaterialModule } from 'src/shared-resources/material.module';
 import { PollDetailsComponent } from './poll-details/poll-details.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PollCandidateComponent } from './poll-candidate/poll-candidate.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'pollboard', pathMatch: 'full' },
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PollBoardComponent, PollDetailsComponent],
+  declarations: [PollBoardComponent, PollDetailsComponent, PollCandidateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

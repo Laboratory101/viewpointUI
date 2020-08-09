@@ -1,0 +1,26 @@
+<div [formGroup]="candidateForm">
+  <div formArrayName="candidates" class="candidates-layout">
+    <fieldset *ngFor="let candidate of candidateForm.get('candidates')['controls'];let i=index">
+      <legend>
+        <h4>Candidate {{i+1}}: </h4>
+      </legend>
+      <div [formGroupName]="i" class="field-layout">
+        <div class="img-container" (click)="fileInput.click()" (drop)="dropFile($event,i)" ondragover="return false;">
+          <mat-icon aria-hidden="false" aria-label="Upload image" class="centered">backup</mat-icon>
+          <img [src]="imageSrc[i]" *ngIf="imageSrc[i]"/>
+          <input hidden type="file" #fileInput id="fileInput" (change)="uploadFile($event,i)" accept='image/*'/>
+        </div>
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <input type="text" matInput formControlName="text" maxlength="50" />
+        </mat-form-field>
+        <div>
+          <button type="button" mat-raised-button color="primary" (click)="addCandidate()"
+            *ngIf="i+1===candidateForm.get('candidates')['controls'].length" style="margin-right: 16px;">Add</button>
+          <button type="button" mat-raised-button color="warn" (click)="removeCandidate(i)"
+            [disabled]="candidateForm.get('candidates')['controls'].length <=4">Remove</button>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

@@ -1,22 +1,50 @@
+.poll-details{
+    overflow: auto;
+    padding: 10px;
+    height: 87vh;
+}
+
 .poll-form{
     display: grid;
-    gap: 8px;
-    grid-template-columns: repeat(2,1fr);
-    grid-template-rows: repeat(2,1fr);
+    gap: 16px;
+    grid-template-rows: 200px 1fr 40px;
     grid-template-areas:
-    'left-panel right-panel'
-    'form-action .';
+    'form-fields'
+    'poll-candidates'
+    'form-action';
+    padding: 16px;
 }
 
-.left-panel{
+.form-fields{
     display: grid;
-    grid-area: left-panel;
+    grid-area: form-fields;
+    row-gap: 12px;
+    column-gap: 36px;
+    grid-template-columns: repeat(2,1fr);
 }
 
-.right-panel{
-    grid-area: right-panel;
+.radio-group{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    mat-radio-group{
+        display: block;
+        margin-top: 6px;
+    }
+    .mat-radio-button ~ .mat-radio-button {
+        margin-left: 16px;
+      }
+}
+
+.poll-candidates{
+    grid-area: poll-candidates;
 }
 
 .form-action{
     grid-area: form-action;
+}
+
+h3{
+    padding: 8px;
+    border-radius: 10px;
+    border: 2px ridge;
 }

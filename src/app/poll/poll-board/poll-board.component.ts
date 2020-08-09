@@ -20,8 +20,6 @@ export class PollBoardComponent implements OnInit {
   }
 
   getPollInfo(pollData: any) {
-    console.log('Activated: ', this.activatedRoute.parent);
-    console.log('URL', this.router.url);
     this.router.navigate(['./viewpoll'], { relativeTo: this.activatedRoute.parent, state: pollData });
   }
 

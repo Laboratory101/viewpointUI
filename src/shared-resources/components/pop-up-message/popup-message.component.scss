@@ -7,8 +7,16 @@
 
 .info-snack-bar{
     background-color: mat-color($viewpoint-app-accent) !important;  
+    color: black;
 }
 
 .success-snack-bar{
     background-color: mat-color($viewpoint-app-primary) !important;
+}
+
+::ng-deep{
+    .mat-snack-bar-container{
+    padding: 6px;
+    min-height: 0px;
+    }
 }
