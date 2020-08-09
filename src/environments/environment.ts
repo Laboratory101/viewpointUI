@@ -4,7 +4,17 @@
 
 export const environment = {
   production: false,
-  apiURL: 'http://localhost:4020'
+  apiURL: 'http://localhost:4020',
+  firebaseConfig: {
+    apiKey: 'AIzaSyChgwcfEKVbblHZMtbjoSRYE2UcLHYwdXU',
+    authDomain: 'view-point-app.firebaseapp.com',
+    databaseURL: 'https://view-point-app.firebaseio.com',
+    projectId: 'view-point-app',
+    storageBucket: 'view-point-app.appspot.com',
+    messagingSenderId: '203750769129',
+    appId: '1:203750769129:web:f767eff33dcf5c1ee88b78',
+    measurementId: 'G-Q7673T0GL2'
+  }
 };
 
 /*
