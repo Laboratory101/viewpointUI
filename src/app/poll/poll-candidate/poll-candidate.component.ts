@@ -3,6 +3,7 @@ import { FormGroup, AbstractControl, Validators, FormBuilder, FormArray } from '
 import validator from 'validator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PopupMessageComponent } from 'src/shared-resources/components/pop-up-message/popup-message.component';
+import { createUUID } from 'src/shared-resources/services/utility';
 
 @Component({
   selector: 'app-poll-candidate',
@@ -12,6 +13,7 @@ import { PopupMessageComponent } from 'src/shared-resources/components/pop-up-me
 export class PollCandidateComponent implements OnInit {
 
   @Input() private parentForm: FormGroup;
+  @Input() private candidates: Array<any>;
 
   candidateForm: FormGroup;
   imageSrc: any;
@@ -24,19 +26,39 @@ export class PollCandidateComponent implements OnInit {
       candidates: new FormArray([])
     });
     this.parentForm.addControl('candidates', this.candidateForm.get('candidates'));
-    for (let count = 1; count <= 4; count++) {
-      this.addCandidate();
+    if (this.candidates.length) {
+      this.candidates.forEach((data: any, index: number) => {
+        this.addCandidate(data, index);
+      });
+    } else {
+      for (let count = 1; count <= 4; count++) {
+        this.addCandidate();
+      }
     }
   }
 
-  addCandidate() {
+  addCandidate(data?: any, index?: number) {
     const candidateArray = this.candidateForm.get('candidates') as FormArray;
-    const newCandidate = this.formBuilder.group(
-      {
-        imgUrl: ['', [this.isURLValid]],
-        text: ['', [Validators.minLength(1), Validators.maxLength(50)]],
-      }
-    );
+    const uuid: string = createUUID();
+    let newCandidate: FormGroup;
+    if (!!data) {
+      newCandidate = this.formBuilder.group(
+        {
+          _id: [data._id, Validators.required],
+          imgUrl: [data.imgUrl || null, [this.isURLValid]],
+          text: [data.text || '', [Validators.minLength(1), Validators.maxLength(50)]],
+        }
+      );
+      this.imageSrc[index] = null;
+    } else {
+      newCandidate = this.formBuilder.group(
+        {
+          _id: [uuid, Validators.required],
+          imgUrl: ['', [this.isURLValid]],
+          text: ['', [Validators.minLength(1), Validators.maxLength(50)]],
+        }
+      );
+    }
     candidateArray.push(newCandidate);
   }
 
@@ -57,10 +79,14 @@ export class PollCandidateComponent implements OnInit {
     this.handleInputChange(event, index);
   }
 
+  setDefaultPic(index: number) {
+    this.imageSrc[index] = 'assets/no_img.webp';
+  }
+
   private handleInputChange(event: any, index: number) {
     const file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
     const pattern = /image-*/;
-    const reader = new FileReader();
+    const reader: FileReader = new FileReader();
     if (!file.type.match(pattern)) {
       this.snackBar.openFromComponent(PopupMessageComponent, {
         duration: 4000,

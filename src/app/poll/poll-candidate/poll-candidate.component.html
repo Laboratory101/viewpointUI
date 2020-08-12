@@ -6,8 +6,8 @@
       </legend>
       <div [formGroupName]="i" class="field-layout">
         <div class="img-container" (click)="fileInput.click()" (drop)="dropFile($event,i)" ondragover="return false;">
-          <mat-icon aria-hidden="false" aria-label="Upload image" class="centered">backup</mat-icon>
-          <img [src]="imageSrc[i]" *ngIf="imageSrc[i]"/>
+          <mat-icon aria-hidden="false" aria-label="Upload image" class="centered">add_photo_alternate</mat-icon>
+          <img [src]="imageSrc[i]" *ngIf="imageSrc[i]" alt="Poll candidate image" (error)="setDefaultPic(i)"/>
           <input hidden type="file" #fileInput id="fileInput" (change)="uploadFile($event,i)" accept='image/*'/>
         </div>
         <mat-form-field>
