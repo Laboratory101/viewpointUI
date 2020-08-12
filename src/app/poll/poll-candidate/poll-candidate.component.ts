@@ -28,7 +28,8 @@ export class PollCandidateComponent implements OnInit {
     this.parentForm.addControl('candidates', this.candidateForm.get('candidates'));
     if (this.candidates.length) {
       this.candidates.forEach((data: any, index: number) => {
-        this.addCandidate(data, index);
+        this.addCandidate(data);
+        this.imageSrc[index] = data.imgUrl;
       });
     } else {
       for (let count = 1; count <= 4; count++) {
@@ -37,28 +38,15 @@ export class PollCandidateComponent implements OnInit {
     }
   }
 
-  addCandidate(data?: any, index?: number) {
+  addCandidate(data?: any) {
     const candidateArray = this.candidateForm.get('candidates') as FormArray;
-    const uuid: string = createUUID();
-    let newCandidate: FormGroup;
-    if (!!data) {
-      newCandidate = this.formBuilder.group(
-        {
-          _id: [data._id, Validators.required],
-          imgUrl: [data.imgUrl || null, [this.isURLValid]],
-          text: [data.text || '', [Validators.minLength(1), Validators.maxLength(50)]],
-        }
-      );
-      this.imageSrc[index] = null;
-    } else {
-      newCandidate = this.formBuilder.group(
-        {
-          _id: [uuid, Validators.required],
-          imgUrl: ['', [this.isURLValid]],
-          text: ['', [Validators.minLength(1), Validators.maxLength(50)]],
-        }
-      );
-    }
+    const newCandidate: FormGroup = this.formBuilder.group(
+      {
+        _id: [((data && data._id) ? data._id : createUUID()), Validators.required],
+        imgUrl: [((data && data.imgUrl) ? data.imgUrl : null), [this.isURLValid]],
+        text: [((data && data.text) ? data.text : null), [Validators.minLength(1), Validators.maxLength(50)]],
+      }
+    );
     candidateArray.push(newCandidate);
   }
 

@@ -7,11 +7,10 @@
 .poll-form{
     display: grid;
     gap: 16px;
-    grid-template-rows: 200px 1fr 40px;
+    grid-template-rows: 200px 1fr;
     grid-template-areas:
     'form-fields'
-    'poll-candidates'
-    'form-action';
+    'poll-candidates';
     padding: 16px;
 }
 
@@ -39,12 +38,16 @@
     grid-area: poll-candidates;
 }
 
-.form-action{
-    grid-area: form-action;
-}
-
-h3{
+.title{
     padding: 8px;
     border-radius: 10px;
     border: 2px ridge;
+    display: flex;
+    justify-content: space-between;
+
+    div:first-child{
+        align-self: center;
+        font-size: 20px;
+        font-weight: 500;
+    }
 }

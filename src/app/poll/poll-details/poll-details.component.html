@@ -1,6 +1,14 @@
 <div class="poll-details">
-  <h3>Set up poll</h3>
-  <form [formGroup]="pollForm" autocomplete="off" (ngSubmit)="savePoll()" class="poll-form">
+  <div class="title">
+    <div>Set up poll</div>
+    <div>
+      <button type="submit" mat-raised-button color="primary"
+        (click)="saveOrEditPoll(buttonOperation)">{{buttonOperation}}</button>
+      <button type="reset" mat-raised-button color="warn" style="margin-left: 16px;"
+        (click)="goTOPolls()">Close</button>
+    </div>
+  </div>
+  <form [formGroup]="pollForm" autocomplete="off" class="poll-form">
     <div class="form-fields">
       <mat-form-field>
         <mat-label>Title</mat-label>
@@ -41,10 +49,6 @@
     </div>
     <div class="poll-candidates">
       <app-poll-candidate [parentForm]="pollForm" [candidates]="candidateData"></app-poll-candidate>
-    </div>
-    <div class="form-action">
-      <button type="submit" mat-raised-button color="primary">Submit</button>
-      <button type="reset" mat-raised-button color="warn" style="margin-left: 16px;">Cancel</button>
     </div>
   </form>
 </div>
