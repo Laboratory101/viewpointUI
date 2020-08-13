@@ -52,9 +52,9 @@ export class PollCandidateComponent implements OnInit, OnDestroy {
     const candidateArray = this.candidateForm.get('candidates') as FormArray;
     const newCandidate: FormGroup = this.formBuilder.group(
       {
-        _id: [((data && data._id) ? data._id : createUUID()), Validators.required],
-        imgUrl: [((data && data.imgUrl) ? data.imgUrl : null), [this.isURLValid]],
-        text: [((data && data.text) ? data.text : null), [Validators.minLength(1), Validators.maxLength(50)]],
+        candidateId: [((data && data.candidateId) ? data.candidateId : createUUID()), Validators.required],
+        imgUrl: [((data && data.imgUrl) ? data.imgUrl : ''), [this.isURLValid]],
+        text: [((data && data.text) ? data.text : ''), [Validators.minLength(1), Validators.maxLength(50)]],
       }
     );
     candidateArray.push(newCandidate);

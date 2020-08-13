@@ -24,11 +24,11 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>No of participants</mat-label>
-        <input type="number" matInput formControlName="participantCount" min="4" />
+        <input type="number" matInput formControlName="participantCount" min="3" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Duration</mat-label>
-        <input type="number" matInput formControlName="duration" max="30" />
+        <input type="number" matInput formControlName="duration" min="1" max="30" />
       </mat-form-field>
       <div class="radio-group">
         <div>
@@ -48,7 +48,8 @@
       </div>
     </div>
     <div class="poll-candidates">
-      <app-poll-candidate [parentForm]="pollForm" [candidates]="candidateData" (uploadedImages)="storeImages($event)"></app-poll-candidate>
+      <app-poll-candidate [parentForm]="pollForm" [candidates]="candidateData" (uploadedImages)="storeImages($event)">
+      </app-poll-candidate>
     </div>
   </form>
 </div>

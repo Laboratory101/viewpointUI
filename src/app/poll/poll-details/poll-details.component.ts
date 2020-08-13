@@ -4,6 +4,7 @@ import { createUUID } from 'src/shared-resources/services/utility';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FireBaseService } from 'src/shared-resources/services/firebase.service';
 import { PollService } from '../poll.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-poll-details',
@@ -22,12 +23,12 @@ export class PollDetailsComponent implements OnInit {
               private fireBase: FireBaseService, private pollService: PollService) { }
 
   ngOnInit() {
-    this.pollData = window.history.state._id ? { ...window.history.state } : null;
+    this.pollData = window.history.state.pollId ? { ...window.history.state } : null;
     this.pollForm = this.formBuilder.group({
-      _id: [((!!this.pollData && this.pollData._id) ? this.pollData._id : createUUID()), Validators.required],
+      pollId: [((!!this.pollData && this.pollData.pollId) ? this.pollData.pollId : createUUID()), Validators.required],
       title: [((!!this.pollData && this.pollData.title) ? this.pollData.title : ''), [Validators.required, Validators.maxLength(50)]],
       description: [((!!this.pollData && this.pollData.description) ? this.pollData.description : '')],
-      participantCount: [((!!this.pollData && this.pollData.participantCount) ? this.pollData.participantCount : 2), [Validators.min(2)]],
+      participantCount: [((!!this.pollData && this.pollData.participantCount) ? this.pollData.participantCount : 3), [Validators.min(3)]],
       duration: [((!!this.pollData && this.pollData.duration) ? this.pollData.duration : 7), [Validators.max(30)]],
       privacyType: [((!!this.pollData && !!this.pollData.privacyType != null) ? this.pollData.privacyType.toString() : null),
       Validators.required],
@@ -45,22 +46,28 @@ export class PollDetailsComponent implements OnInit {
     this.imagesToUpload = [];
   }
 
-  saveOrEditPoll(operation: string): void {
+  async saveOrEditPoll(operation: string) {
     if (operation === 'Edit') {
       this.pollForm.enable();
       this.buttonOperation = 'Submit';
     } else {
-      if (this.imagesToUpload.length) {
-        const { title, _id, candidates } = this.pollForm.getRawValue();
-        this.imagesToUpload.forEach(async (imgFile: File, index: number) => {
-          const path = `${title}/${_id}/${candidates[index]._id}`;
-          const imgURL = await this.fireBase.uploadImage(imgFile, path);
-          this.pollForm.get('candidates')[index].get('imgUrl').setValue(imgURL);
-        });
-      }
-      console.log('Form: ', this.pollForm.value);
       this.pollForm.disable();
-      // this.pollService.savePollDetails(this.pollForm.value);
+      if (this.imagesToUpload.length) {
+        const { title, pollId, candidates } = this.pollForm.getRawValue();
+        for (let index = 0; index < this.imagesToUpload.length; index++) {
+          const path = `${title}/${pollId}/${candidates[index].candidateId}`;
+          const imgFile: File = this.imagesToUpload[index];
+          const imgURL = await this.fireBase.uploadImage(imgFile, path).toPromise();
+          this.pollForm.get('candidates').controls[index].get('imgUrl').setValue(imgURL || '');
+        }
+      }
+      const formData = this.pollForm.getRawValue();
+      formData.host = 'alec';
+      this.pollService.savePollDetails(formData).subscribe(() => {
+        this.goTOPolls();
+      }, err => {
+        console.log('Error save: ', err);
+      });
     }
   }
 

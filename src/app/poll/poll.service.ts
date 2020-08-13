@@ -13,6 +13,7 @@ export class PollService {
   }
 
   savePollDetails(pollData: any): Observable<any> {
-    return this.http.post(`${environment.apiURL}/save-poll`, pollData);
+    console.log('Poll data: ', pollData);
+    return this.http.post(`${environment.apiURL}/poll/save-poll`, pollData);
   }
 }
