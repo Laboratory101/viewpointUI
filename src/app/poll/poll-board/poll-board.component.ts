@@ -19,7 +19,7 @@ export class PollBoardComponent implements OnInit {
     this.pollList$ = this.pollService.fetchAllPolls(this.mockHost);
   }
 
-  getPollInfo(pollData: any) {
+  getPollInfo(pollData?: any) {
     this.router.navigate(['./viewpoll'], { relativeTo: this.activatedRoute.parent, state: pollData });
   }
 

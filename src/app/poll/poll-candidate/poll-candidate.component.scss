@@ -25,11 +25,9 @@
     display: -webkit-flex;
     display: flex;
     position: relative;
-    cursor: pointer;
     height: 250px;
     -webkit-justify-content: center;
     justify-content: center;
-    outline: 3px dashed mat-color($viewpoint-app-primary);
     outline-offset: 5px;
     position: relative;
     width: 50%;

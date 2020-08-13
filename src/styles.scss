@@ -8,3 +8,17 @@ body {
     overflow-y: hidden; /* Hide vertical scrollbar */
     overflow-x: hidden; /* Hide horizontal scrollbar */
   }
+
+.disabled-text{
+    color:rgba(0,0, 0, 0.38)
+}
+
+.enable-border{
+  outline: 3px dashed mat-color($viewpoint-app-primary);
+  cursor: pointer;
+}
+
+.disable-border{
+  outline: 3px dotted rgba(0,0, 0, 0.38);
+  cursor: not-allowed;
+}

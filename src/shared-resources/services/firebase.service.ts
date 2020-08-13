@@ -3,7 +3,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FireBaseService {
 
     constructor(private storage: AngularFireStorage) { }

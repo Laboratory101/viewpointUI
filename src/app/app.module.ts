@@ -11,11 +11,12 @@ import { NavBarComponent } from '../shared-resources/components/navbar/navbar.co
 import { MaterialModule } from '../shared-resources/material.module';
 import { HttpInterceptorService } from '../shared-resources/services/http-interceptor.service';
 import { PopupMessageComponent } from '../shared-resources/components/pop-up-message/popup-message.component';
+import { ConfirmationBoxComponent } from '../shared-resources/components/confirmation-box/confirmation-box.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, NavBarComponent, PopupMessageComponent
+    AppComponent, NavBarComponent, PopupMessageComponent, ConfirmationBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +26,7 @@ import { PopupMessageComponent } from '../shared-resources/components/pop-up-mes
     AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireStorageModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
-  entryComponents: [PopupMessageComponent],
+  entryComponents: [PopupMessageComponent, ConfirmationBoxComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,7 @@ import { MaterialModule } from 'src/shared-resources/material.module';
 import { PollDetailsComponent } from './poll-details/poll-details.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PollCandidateComponent } from './poll-candidate/poll-candidate.component';
+import { PollService } from './poll.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'pollboard', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule, ReactiveFormsModule, FormsModule
   ],
+  providers: [PollService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PollModule { }

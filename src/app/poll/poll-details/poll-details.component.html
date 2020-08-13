@@ -48,7 +48,7 @@
       </div>
     </div>
     <div class="poll-candidates">
-      <app-poll-candidate [parentForm]="pollForm" [candidates]="candidateData"></app-poll-candidate>
+      <app-poll-candidate [parentForm]="pollForm" [candidates]="candidateData" (uploadedImages)="storeImages($event)"></app-poll-candidate>
     </div>
   </form>
 </div>

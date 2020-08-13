@@ -1,0 +1,13 @@
+<ng-container>
+  <h3 mat-dialog-title>
+    <span class="title">Attention</span>
+    <mat-icon aria-hidden="false">info</mat-icon>
+  </h3>
+  <div mat-dialog-content>
+    {{data.message}}
+  </div>
+  <div mat-dialog-actions>
+    <button type="button" mat-stroked-button color="primary" (click)="onConfirm()" style="margin-right: 16px;">Yes</button>
+    <button type="button" mat-stroked-button color="warn" (click)="onCancel()">No</button>
+  </div>
+</ng-container>

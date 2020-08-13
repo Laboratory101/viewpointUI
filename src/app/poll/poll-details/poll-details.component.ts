@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { createUUID } from 'src/shared-resources/services/utility';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FireBaseService } from 'src/shared-resources/services/firebase.service';
+import { PollService } from '../poll.service';
 
 @Component({
   selector: 'app-poll-details',
@@ -14,8 +16,10 @@ export class PollDetailsComponent implements OnInit {
   pollData: any;
   candidateData: any;
   buttonOperation: string;
+  private imagesToUpload: Array<File>;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute,
+              private fireBase: FireBaseService, private pollService: PollService) { }
 
   ngOnInit() {
     this.pollData = window.history.state._id ? { ...window.history.state } : null;
@@ -38,18 +42,34 @@ export class PollDetailsComponent implements OnInit {
       this.candidateData = [];
       this.buttonOperation = 'Submit';
     }
+    this.imagesToUpload = [];
   }
 
   saveOrEditPoll(operation: string): void {
     if (operation === 'Edit') {
+      this.pollForm.enable();
       this.buttonOperation = 'Submit';
     } else {
+      if (this.imagesToUpload.length) {
+        const { title, _id, candidates } = this.pollForm.getRawValue();
+        this.imagesToUpload.forEach(async (imgFile: File, index: number) => {
+          const path = `${title}/${_id}/${candidates[index]._id}`;
+          const imgURL = await this.fireBase.uploadImage(imgFile, path);
+          this.pollForm.get('candidates')[index].get('imgUrl').setValue(imgURL);
+        });
+      }
       console.log('Form: ', this.pollForm.value);
+      this.pollForm.disable();
+      // this.pollService.savePollDetails(this.pollForm.value);
     }
   }
 
   goTOPolls(): void {
     this.router.navigate(['./pollboard'], { relativeTo: this.activatedRoute.parent });
+  }
+
+  storeImages(imageFiles: Array<File>): void {
+    this.imagesToUpload = [...imageFiles];
   }
 
 }
