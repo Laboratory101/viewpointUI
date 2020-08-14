@@ -1,6 +1,6 @@
 <ng-container>
   <div class="poll-layout">
-    <mat-card *ngFor="let poll of pollList$ |async" class="poll-card">
+    <mat-card *ngFor="let poll of pollList$ |async; let i = index" class="poll-card">
       <mat-card-header>
         <mat-card-title>{{poll.title}}</mat-card-title>
         <mat-card-subtitle *ngIf="poll?.description">{{poll.description}}</mat-card-subtitle>
@@ -13,6 +13,9 @@
         </button>
         <button mat-button matTooltip="Poll results">
           <mat-icon aria-hidden="false" aria-label="result" color="primary">poll</mat-icon>
+        </button>
+        <button mat-button matTooltip="Copy poll URL" [copyToClipboard]="pollURL[i]">
+          <mat-icon aria-hidden="false" aria-label="result" color="primary">link</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>
