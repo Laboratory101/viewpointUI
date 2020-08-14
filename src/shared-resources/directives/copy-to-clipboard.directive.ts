@@ -19,7 +19,7 @@ export class CopyToClipboardDirective {
     }
 
     const listener = (evnt: ClipboardEvent) => {
-      const clipboard = evnt.clipboardData || window.clipboardData;
+      const clipboard = evnt.clipboardData || window['clipboardData'];
       clipboard.setData('text', this.payload.toString());
       evnt.preventDefault();
       this.copied.emit(this.payload);
