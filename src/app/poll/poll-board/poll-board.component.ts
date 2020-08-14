@@ -18,7 +18,7 @@ export class PollBoardComponent implements OnInit {
   constructor(private pollService: PollService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.pollURL = []
+    this.pollURL = [];
     this.pollList$ = this.pollService.fetchAllPolls(this.mockHost).pipe(
       tap(pollData => pollData.forEach((poll: any, index: number) =>
         this.pollURL[index] = `${window.location.origin}/participate/poll/${poll.pollId}`

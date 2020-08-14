@@ -58,7 +58,7 @@ export class PollDetailsComponent implements OnInit {
           const path = `${title}/${pollId}/${candidates[index].candidateId}`;
           const imgFile: File = this.imagesToUpload[index];
           const imgURL = await this.fireBase.uploadImage(imgFile, path).toPromise();
-          this.pollForm.get('candidates')['controls'][index].get('imgUrl').setValue(imgURL || '');
+          this.pollForm.get('candidates').controls[index].get('imgUrl').setValue(imgURL || '');
         }
       }
       const formData = this.pollForm.getRawValue();
