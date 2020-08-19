@@ -1,0 +1,19 @@
+<mat-card *ngIf="!shouldAllow" class="centered">
+  <mat-card-header class="title">
+    <mat-card-title>Login to continue</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field class="password-field">
+      <mat-label>Password</mat-label>
+      <input [type]="hide ? 'password' : 'text'" matInput [(ngModel)]="password" />
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-hint align="start"><strong>If applicable</strong> </mat-hint>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="logIn()" style="width: 100%;">Log in</button>
+  </mat-card-actions>
+</mat-card>
+<ng-container *ngIf="shouldAllow">
+  <router-outlet></router-outlet>
+</ng-container>

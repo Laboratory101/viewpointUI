@@ -8,6 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PollCandidateComponent } from './poll-candidate/poll-candidate.component';
 import { PollService } from './poll.service';
 import { CopyToClipboardDirective } from 'src/shared-resources/directives/copy-to-clipboard.directive';
+import { CastVoteComponent } from '../poll/cast-vote/cast-vote.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'pollboard', pathMatch: 'full' },
@@ -17,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PollBoardComponent, PollDetailsComponent, PollCandidateComponent, CopyToClipboardDirective],
+  declarations: [PollBoardComponent, PollDetailsComponent, PollCandidateComponent, CopyToClipboardDirective, CastVoteComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

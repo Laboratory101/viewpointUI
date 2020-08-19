@@ -21,7 +21,7 @@ export class PollBoardComponent implements OnInit {
     this.pollURL = [];
     this.pollList$ = this.pollService.fetchAllPolls(this.mockHost).pipe(
       tap(pollData => pollData.forEach((poll: any, index: number) =>
-        this.pollURL[index] = `${window.location.origin}/participate/poll/${poll.pollId}`
+        this.pollURL[index] = `${window.location.origin}/participate?type=poll&id=${poll._id}`
       ))
     );
   }

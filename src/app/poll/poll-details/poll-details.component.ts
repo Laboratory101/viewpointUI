@@ -23,9 +23,9 @@ export class PollDetailsComponent implements OnInit {
               private fireBase: FireBaseService, private pollService: PollService) { }
 
   ngOnInit() {
-    this.pollData = window.history.state.pollId ? { ...window.history.state } : null;
+    this.pollData = window.history.state._id ? { ...window.history.state } : null;
     this.pollForm = this.formBuilder.group({
-      pollId: [((!!this.pollData && this.pollData.pollId) ? this.pollData.pollId : createUUID()), Validators.required],
+      _id: [((!!this.pollData && this.pollData._id) ? this.pollData._id : createUUID()), Validators.required],
       title: [((!!this.pollData && this.pollData.title) ? this.pollData.title : ''), [Validators.required, Validators.maxLength(50)]],
       description: [((!!this.pollData && this.pollData.description) ? this.pollData.description : '')],
       participantCount: [((!!this.pollData && this.pollData.participantCount) ? this.pollData.participantCount : 3), [Validators.min(3)]],
@@ -53,9 +53,9 @@ export class PollDetailsComponent implements OnInit {
     } else {
       this.pollForm.disable();
       if (this.imagesToUpload.length) {
-        const { title, pollId, candidates } = this.pollForm.getRawValue();
+        const { title, _id } = this.pollForm.getRawValue();
         for (let index = 0; index < this.imagesToUpload.length; index++) {
-          const path = `${title}/${pollId}/${candidates[index].candidateId}`;
+          const path = `${title}/${_id}/${index}`;
           const imgFile: File = this.imagesToUpload[index];
           const imgURL = await this.fireBase.uploadImage(imgFile, path).toPromise();
           this.pollForm.get('candidates')['controls'][index].get('imgUrl').setValue(imgURL || '');
