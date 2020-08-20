@@ -22,7 +22,7 @@ export class PollService {
   }
 
   updatePollDetails(pollData: any): Observable<any> {
-    return this.http.put(`${environment.apiURL}/poll/update-poll/${pollData._id}`, pollData).pipe(tap(console.log));
+    return this.http.put(`${environment.apiURL}/poll/update-poll/${pollData._id}`, pollData)
   }
 
   deletePollDetails(pollId: string): Observable<any> {

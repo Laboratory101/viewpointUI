@@ -58,38 +58,46 @@ export class PollDetailsComponent implements OnInit, OnDestroy {
     } else {
       this.pollForm.disable();
       if (this.imagesToUpload.length) {
-        const { title, _id } = this.pollForm.getRawValue();
-        for (let index = 0; index < this.imagesToUpload.length; index++) {
-          const path = `${_id}/${index + 1}`;
-          const imgFile: File = this.imagesToUpload[index];
-          const imgURL = await this.fireBase.uploadImage(imgFile, path).toPromise();
-          this.pollForm.get('candidates')['controls'][index].get('imgUrl').setValue(imgURL || '');
+        const { _id, candidates, participantCount } = this.pollForm.getRawValue();
+        if (participantCount < candidates.length) {
+          this.snackBar.openFromComponent(PopupMessageComponent, {
+            duration: 4000,
+            data: { message: `Number of participants are less than candidates. Please have minimum of ${candidates.length + 1} participants`, type: 'error' }
+          });
         }
-      }
-      const formData = this.pollForm.getRawValue();
-      formData.privacyType = parseInt(formData.privacyType,10)
-      formData.resultDisplayType = parseInt(formData.resultDisplayType,10)
-      formData.host = 'alec';
-      if (operation === 'Update') {
-        this.pollService.updatePollDetails(formData).pipe(takeUntil(this.unSubscribe$)).subscribe(response => {
-          this.snackBar.openFromComponent(PopupMessageComponent, {
-            duration: 4000,
-            data: { message: response.message, type: 'success' }
+        else {
+          for (let index = 0; index < this.imagesToUpload.length; index++) {
+            const path = `${_id}/${index + 1}`;
+            const imgFile: File = this.imagesToUpload[index];
+            const imgURL = await this.fireBase.uploadImage(imgFile, path).toPromise();
+            this.pollForm.get('candidates')['controls'][index].get('imgUrl').setValue(imgURL || '');
+          }
+        }
+        const formData = this.pollForm.getRawValue();
+        formData.privacyType = parseInt(formData.privacyType, 10)
+        formData.resultDisplayType = parseInt(formData.resultDisplayType, 10)
+        formData.host = 'alec';
+        if (operation === 'Update') {
+          this.pollService.updatePollDetails(formData).pipe(takeUntil(this.unSubscribe$)).subscribe(response => {
+            this.snackBar.openFromComponent(PopupMessageComponent, {
+              duration: 4000,
+              data: { message: response.message, type: 'success' }
+            });
+            this.goTOPolls();
+          }, err => {
+            console.log('Error update: ', err);
           });
-          this.goTOPolls();
-        }, err => {
-          console.log('Error update: ', err);
-        });
-      } else if (operation === 'Submit') {
-        this.pollService.savePollDetails(formData).pipe(takeUntil(this.unSubscribe$)).subscribe(response => {
-          this.snackBar.openFromComponent(PopupMessageComponent, {
-            duration: 4000,
-            data: { message: response.message, type: 'success' }
+        } else if (operation === 'Submit') {
+          this.pollService.savePollDetails(formData).pipe(takeUntil(this.unSubscribe$)).subscribe(response => {
+            this.snackBar.openFromComponent(PopupMessageComponent, {
+              duration: 4000,
+              data: { message: response.message, type: 'success' }
+            });
+            this.goTOPolls();
+          }, err => {
+            console.log('Error save: ', err);
           });
-          this.goTOPolls();
-        }, err => {
-          console.log('Error save: ', err);
-        });
+        }
       }
     }
   }
@@ -106,5 +114,4 @@ export class PollDetailsComponent implements OnInit, OnDestroy {
     this.unSubscribe$.next();
     this.unSubscribe$.complete();
   }
-
 }

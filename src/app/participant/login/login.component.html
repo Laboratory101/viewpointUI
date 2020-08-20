@@ -6,7 +6,7 @@
     <mat-form-field class="password-field">
       <mat-label>Password</mat-label>
       <input [type]="hide ? 'password' : 'text'" matInput [(ngModel)]="password" />
-      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-icon matSuffix (click)="hide = !hide" class="button">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-hint align="start"><strong>If applicable</strong> </mat-hint>
     </mat-form-field>
   </mat-card-content>
