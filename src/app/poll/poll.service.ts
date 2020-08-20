@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class PollService {
@@ -18,5 +19,13 @@ export class PollService {
 
   fetchPollById(pollId: string): Observable<any> {
     return this.http.get(`${environment.apiURL}/poll/fetch-poll/${pollId}`);
+  }
+
+  updatePollDetails(pollData: any): Observable<any> {
+    return this.http.put(`${environment.apiURL}/poll/update-poll/${pollData._id}`, pollData).pipe(tap(console.log));
+  }
+
+  deletePollDetails(pollId: string): Observable<any> {
+    return this.http.delete(`${environment.apiURL}/poll/delete-poll/${pollId}`)
   }
 }

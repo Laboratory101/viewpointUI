@@ -15,7 +15,11 @@
           <mat-icon aria-hidden="false" aria-label="result" color="primary">poll</mat-icon>
         </button>
         <button mat-button matTooltip="Copy poll URL" [copyToClipboard]="pollURL[i]">
-          <mat-icon aria-hidden="false" aria-label="result" color="primary">link</mat-icon>
+          <mat-icon aria-hidden="false" aria-label="url" color="primary">link</mat-icon>
+        </button>
+        <button mat-button matTooltip="Delete Poll">
+          <mat-icon aria-hidden="false" aria-label="delete" color="warn" (click)="deletePoll(poll._id)">delete_forever
+          </mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>

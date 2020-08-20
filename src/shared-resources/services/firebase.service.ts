@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
-import { finalize, tap, last, map, flatMap } from 'rxjs/operators';
-import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { last, map, flatMap } from 'rxjs/operators';
+import * as firebase from 'firebase';
 
 @Injectable({ providedIn: 'root' })
 export class FireBaseService {
@@ -16,5 +16,18 @@ export class FireBaseService {
         const task = this.storage.upload(imgPath, file, metaData);
         return task.snapshotChanges().pipe(last(),
             flatMap(() => storageRef.getDownloadURL().pipe(map(url => url)))) as Observable<string>;
+    }
+
+    async deleteImage(path: string): Promise<void> {
+        try {
+            const data = await firebase.storage().ref(`viewpoint-poll/${path}`).listAll();
+            data.items.forEach(async (item: firebase.storage.Reference) => {
+                await this.storage.storage.ref(item['location']['path']).delete();
+            });
+            return Promise.resolve();
+        }
+        catch (err) {
+            return await Promise.reject();
+        }
     }
 }

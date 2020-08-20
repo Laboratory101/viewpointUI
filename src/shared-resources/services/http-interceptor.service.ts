@@ -23,7 +23,7 @@ export class HttpInterceptorService implements HttpInterceptor {
             this.loaderService.display(false);
             this.snackBar.openFromComponent(PopupMessageComponent, {
                 duration: 4000,
-                data: { message: error.message, type: 'error' }
+                data: { message: error.error.message, type: 'error' }
             });
         }));
     }
