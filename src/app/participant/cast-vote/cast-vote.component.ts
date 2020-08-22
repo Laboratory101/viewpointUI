@@ -13,10 +13,11 @@ export class CastVoteComponent implements OnInit {
 
   pollData: any;
   defaultURL: string;
-  resultIn: Date;
+  resultIn: string;
   isSelected: { status: boolean, ref: number };
   selectedCandidate: string;
   disableVote: boolean;
+  statusTitle: string
   constructor(private participantService: ParticipantService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -24,10 +25,10 @@ export class CastVoteComponent implements OnInit {
     this.isSelected = { status: false, ref: null };
     this.defaultURL = 'assets/no_img.webp';
     this.pollData = { ...window.history.state };
-    const { createdAt, duration } = this.pollData
-    this.resultIn = addDays(createdAt, duration);
+    const { createdAt, duration, resultDisplayType } = this.pollData
+    this.resultIn = addDays(createdAt, duration).toDateString();
     console.log('Polldata: ', this.pollData);
-    console.log("Result in: ", this.resultIn)
+    this.statusTitle = (resultDisplayType === 1) ? 'Ends on' : 'Result on'
   }
 
   selectCandidate(candidateId: string, index: number): void {

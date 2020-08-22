@@ -22,7 +22,24 @@
       <button mat-raised-button color="primary" (click)="castVote()" class="vote">Submit</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card class="stat-screen">
-
-  </mat-card>
+  <div class="stat-screen">
+    <mat-card>
+      <mat-card-content>
+        <div class="status" *ngIf="pollData.resultDisplayType===1">
+          <span>Live</span>
+          <mat-icon style="color: green;">stop_circle</mat-icon>
+        </div>
+        <div style="font-size: 24px;">
+          <span>{{statusTitle}}: {{resultIn}}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Result</mat-card-title>
+      <mat-card-content>
+        <bar-chart></bar-chart>
+      </mat-card-content>
+      <mat-card-footer></mat-card-footer>
+    </mat-card>
+  </div>
 </div>
