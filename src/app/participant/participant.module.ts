@@ -6,10 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/shared-resources/material.module';
 import { PollService } from '../poll/poll.service';
 import { CastVoteComponent } from './cast-vote/cast-vote.component';
+import { ParticipantService } from './participant.service';
+import { AccessGuard } from 'src/shared-resources/services/access-guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'cast-vote', component: CastVoteComponent },
+  { path: 'cast-vote', component: CastVoteComponent, canActivate: [AccessGuard], data: { navigateTo: '/participate' } },
   { path: '**', redirectTo: '' }
 ];
 
@@ -20,6 +22,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule, FormsModule
   ],
-  providers: [PollService],
+  providers: [PollService, ParticipantService],
 })
 export class ParticipantModule { }

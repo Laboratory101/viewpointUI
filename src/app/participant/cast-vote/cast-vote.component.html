@@ -1,3 +1,28 @@
-<p>
-  cast-vote works!
-</p>
+<div class="cast-poll">
+  <mat-card class="poll-screen">
+    <mat-card-header class="title">
+      <mat-card-title>
+        <span>{{pollData.title}}</span>
+      </mat-card-title>
+      <mat-card-subtitle>{{pollData.description}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="candidate-layout">
+      <fieldset *ngFor="let candidate of pollData.candidates;let i=index"
+        [ngClass]="{'selected':isSelected.status && isSelected.ref===i,'not-selected':isSelected.status && isSelected.ref!==i}">
+        <legend>Candidate {{i+1}}:</legend>
+        <div (click)="selectCandidate(candidate._id,i)" class="candidate-content">
+          <div class="hover-zoom">
+            <img [src]="candidate.imgUrl || defaultURL" *ngIf="candidate.imgUrl" alt="Poll candidate image" />
+          </div>
+          <span>{{candidate.text}}</span>
+        </div>
+      </fieldset>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="castVote()" class="vote">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="stat-screen">
+
+  </mat-card>
+</div>
