@@ -1,4 +1,4 @@
-<div class="cast-poll">
+<div class="cast-poll" *ngIf="!displayResult; else result">
   <mat-card class="poll-screen">
     <mat-card-header class="title">
       <mat-card-title>
@@ -19,7 +19,7 @@
       </fieldset>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="castVote()" class="vote">Submit</button>
+      <button mat-raised-button color="primary" (click)="castVote()" class="vote" [disabled]="disableVote">Submit</button>
     </mat-card-actions>
   </mat-card>
   <div class="stat-screen">
@@ -37,9 +37,20 @@
     <mat-card>
       <mat-card-title>Result</mat-card-title>
       <mat-card-content>
-        <bar-chart></bar-chart>
+        <bar-chart [displayData]="chartData" [ngStyle]="{'opacity':(pollData.resultDisplayType===0)?'25%':'unset'}">
+        </bar-chart>
       </mat-card-content>
       <mat-card-footer></mat-card-footer>
     </mat-card>
   </div>
 </div>
+<ng-template #result>
+  <mat-card>
+    <mat-card-title>Result</mat-card-title>
+    <mat-card-content>
+      <bar-chart [displayData]="chartData">
+      </bar-chart>
+    </mat-card-content>
+    <mat-card-footer style="font-size: 24px;">Poll ended on {{resultIn}}</mat-card-footer>
+  </mat-card>
+</ng-template>

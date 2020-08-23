@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import randomColor from 'randomcolor';
 
 @Component({
   selector: 'bar-chart',
@@ -10,52 +11,45 @@ export class BarChartComponent implements OnInit, OnChanges {
   chartType: string;
   chartLabels: Array<string>;
   chartDataSet: Array<any>;
-  chartColors: Array<any>;
+  chartColors: Array<{ backgroundColor: Array<string>, borderColor: Array<string>, borderWidth: number }>;
   chartOptions: any;
 
-  // @Input() displayData: Array<{ label: string, value: number }>;
+  @Input() displayData: Array<{ label: string, value: number }>;
 
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // this.chartDataSet = [{ data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' }];
-    // this.chartLabels = []
-    // if (changes.displayData && (this.displayData && this.displayData.length)) {
-    //   this.displayData.forEach(chartData => {
-
-    //   })
-    // }
+    this.chartDataSet = [{ data: [] }];
+    this.chartLabels = [];
+    this.chartColors = [{ backgroundColor: [], borderColor: [], borderWidth: 2 }]
+    if (changes.displayData && (this.displayData && this.displayData.length)) {
+      this.displayData.forEach(chartData => {
+        this.chartLabels.push(chartData.label);
+        this.chartDataSet[0].data.push(chartData.value);
+        const chartColor = this.generateRandomColor();
+        this.chartColors[0].borderColor.push(chartColor.border);
+        this.chartColors[0].backgroundColor.push(chartColor.background);
+      })
+    }
   }
 
   ngOnInit() {
     this.chartType = 'bar';
     this.chartOptions = { responsive: true };
-    this.chartDataSet = [{ data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' }];
-    this.chartLabels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
-    this.chartColors = [
-      {
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255,99,132,1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 2,
-      }
-    ];
   }
 
   chartClicked(e: any): void { }
   chartHovered(e: any): void { }
+
+
+  private generateRandomColor(): { background: string, border: string } {
+    const bgColor: string = randomColor({
+      luminosity: 'bright',
+      format: 'rgba',
+      alpha: 0.2
+    });
+    const border: string = bgColor.replace('0.2', '1');
+    return { background: bgColor, border }
+  }
 
 }

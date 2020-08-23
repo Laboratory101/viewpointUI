@@ -18,17 +18,26 @@ export class CastVoteComponent implements OnInit {
   selectedCandidate: string;
   disableVote: boolean;
   statusTitle: string
+  chartData: Array<{ label: string, value: number }>;
+  displayResult: boolean;
+
   constructor(private participantService: ParticipantService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.disableVote = false;
-    this.isSelected = { status: false, ref: null };
-    this.defaultURL = 'assets/no_img.webp';
+    this.displayResult = false;
     this.pollData = { ...window.history.state };
-    const { createdAt, duration, resultDisplayType } = this.pollData
-    this.resultIn = addDays(createdAt, duration).toDateString();
-    console.log('Polldata: ', this.pollData);
-    this.statusTitle = (resultDisplayType === 1) ? 'Ends on' : 'Result on'
+    const { createdAt, duration, resultDisplayType, candidates } = this.pollData
+    const today: number = new Date().getTime();
+    const expire: Date = addDays(createdAt, duration)
+    if (today >= expire.getTime()) {
+    } else {
+      this.disableVote = false;
+      this.isSelected = { status: false, ref: null };
+      this.defaultURL = 'assets/no_img.webp';
+      this.resultIn = addDays(createdAt, duration).toDateString();
+      this.statusTitle = (resultDisplayType === 1) ? 'Ends on' : 'Result on'
+      this.chartData = [...this.generateChartData(candidates, resultDisplayType)];
+    }
   }
 
   selectCandidate(candidateId: string, index: number): void {
@@ -49,6 +58,13 @@ export class CastVoteComponent implements OnInit {
         data: status
       });
     })
+  }
+
+  private generateChartData(dataSource: Array<any>, displayType: number): Array<{ label: string, value: number }> {
+    return dataSource.map((data: any, index: number) => ({
+      label: data.text || `Cndt ${index}`,
+      value: (displayType === 1) ? data.count : 0
+    }));
   }
 
 }
