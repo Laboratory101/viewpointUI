@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
 import { last, map, flatMap } from 'rxjs/operators';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 @Injectable({ providedIn: 'root' })
 export class FireBaseService {

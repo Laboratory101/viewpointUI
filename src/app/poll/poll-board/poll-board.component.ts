@@ -45,7 +45,6 @@ export class PollBoardComponent implements OnInit {
 
   deletePoll(pollId: string): void {
     this.pollService.deletePollDetails(pollId).pipe(takeUntil(this.unSubscribe$), tap(async response => {
-      console.log("Response: ", response)
       if (response) {
         try {
           await this.fireStore.deleteImage(pollId)

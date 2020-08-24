@@ -57,15 +57,16 @@ export class PollDetailsComponent implements OnInit, OnDestroy {
       this.buttonOperation = 'Update';
     } else {
       this.pollForm.disable();
-      if (this.imagesToUpload.length) {
-        const { _id, candidates, participantCount } = this.pollForm.getRawValue();
-        if (participantCount < candidates.length) {
-          this.snackBar.openFromComponent(PopupMessageComponent, {
-            duration: 4000,
-            data: { message: `Number of participants are less than candidates. Please have minimum of ${candidates.length + 1} participants`, type: 'error' }
-          });
-        }
-        else {
+      const { _id, candidates, participantCount } = this.pollForm.getRawValue();
+      if (participantCount < candidates.length) {
+        this.snackBar.openFromComponent(PopupMessageComponent, {
+          duration: 4000,
+          data: { message: `Number of participants are less than candidates. Please have minimum of ${candidates.length + 1} participants`, type: 'error' }
+        });
+        this.pollForm.enable();
+      }
+      else {
+        if (this.imagesToUpload.length) {
           for (let index = 0; index < this.imagesToUpload.length; index++) {
             const path = `${_id}/${index + 1}`;
             const imgFile: File = this.imagesToUpload[index];

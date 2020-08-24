@@ -44,26 +44,33 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   logIn() {
-    const { privacyType, pin, createdAt, duration } = this.responseData;
-    const today: number = new Date().getTime();
-    const expire: Date = addDays(createdAt, duration)
-    if (today <= expire.getTime()) {
-      if (privacyType === 1) {
-        if (pin === this.password) {
-          this.router.navigate(['./cast-vote'], { relativeTo: this.activatedRoute.parent, state: this.responseData });
+    if (Object.keys(this.responseData).length) {
+      const { privacyType, pin, createdAt, duration } = this.responseData;
+      const today: number = new Date().getTime();
+      const expire: Date = addDays(createdAt, duration)
+      if (today <= expire.getTime()) {
+        if (privacyType === 1) {
+          if (pin === this.password) {
+            this.router.navigate(['./cast-vote'], { relativeTo: this.activatedRoute.parent, state: this.responseData });
+          } else {
+            this.snackBar.openFromComponent(PopupMessageComponent, {
+              duration: 4000,
+              data: { message: 'Please enter a valid pin', type: 'error' }
+            });
+          }
         } else {
-          this.snackBar.openFromComponent(PopupMessageComponent, {
-            duration: 4000,
-            data: { message: 'Please enter a valid pin', type: 'error' }
-          });
+          this.router.navigate(['./cast-vote'], { relativeTo: this.activatedRoute.parent, state: this.responseData });
         }
       } else {
-        this.router.navigate(['./cast-vote'], { relativeTo: this.activatedRoute.parent, state: this.responseData });
+        this.snackBar.openFromComponent(PopupMessageComponent, {
+          duration: 4000,
+          data: { message: `This Poll has expired on ${expire}`, type: 'info' }
+        });
       }
     } else {
       this.snackBar.openFromComponent(PopupMessageComponent, {
         duration: 4000,
-        data: { message: `This Poll has expired on ${expire}`, type: 'info' }
+        data: { message: `Invalid URL or the requested Poll is not found!`, type: 'error' }
       });
     }
   }
