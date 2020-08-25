@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,7 +24,7 @@ import { ConfirmationBoxComponent } from '../shared-resources/components/confirm
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule, MaterialModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireStorageModule
+    AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireStorageModule, AngularFireAuthModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   entryComponents: [PopupMessageComponent, ConfirmationBoxComponent],

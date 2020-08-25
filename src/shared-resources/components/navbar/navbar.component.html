@@ -1,15 +1,50 @@
-<mat-toolbar color="primary" class="navbar">
+<!-- <mat-toolbar color="primary" class="navbar">
     <nav><span>View Point</span>
         <button mat-button aria-label="poll" (click)="navigateTo('poll')">
             Poll
         </button>
     </nav>
     <nav>
-        <button mat-button aria-label="sign up">
-            <mat-icon>person_outline</mat-icon> Sign up
-        </button>
-        <button mat-button aria-label="log in">
-            <mat-icon>login</mat-icon> Login
-        </button>
+        <ng-container *ngIf="user$ | async as user; else loginIcon">
+            <button mat-button aria-label="logout" (click)="logout()">
+                <mat-icon>power_settings_new</mat-icon> Log out
+            </button>
+        </ng-container>
+        <ng-template #loginIcon>
+            <button mat-button aria-label="login" (click)="login()">
+                <mat-icon>person_outline</mat-icon> Login
+            </button>
+        </ng-template>
     </nav>
-</mat-toolbar>
+</mat-toolbar> -->
+<ng-container *ngIf="user$ | async as user; else login">
+    <mat-toolbar color="primary" class="navbar">
+        <nav><span>View Point</span>
+            <button mat-button aria-label="poll" (click)="navigateTo('poll')">
+                Poll
+            </button>
+        </nav>
+        <nav>
+            <button mat-mini-fab color="primary" class="avatar-button" [matMenuTriggerFor]="beforeMenu">
+                <img [alt]="user.displayName" [src]="user.photoURL" class="avatar" />
+            </button>
+        </nav>
+    </mat-toolbar>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <div class="profile-card">
+            <img [alt]="user.displayName" [src]="user.photoURL" class="big-avatar" />
+            <h4>{{ user.displayName }}</h4>
+            <p>{{ user.email }}</p>
+            <mat-divider></mat-divider>
+            <button mat-stroked-button (click)="logout()">
+                <mat-icon>power_settings_new</mat-icon> Sign Out
+            </button>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-menu>
+</ng-container>
+<ng-template #login>
+    <mat-toolbar color="primary">
+        <nav><span>View Point</span></nav>
+    </mat-toolbar>
+</ng-template>

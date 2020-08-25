@@ -4,6 +4,12 @@
     }
 }
 
+.poll-board{
+  display: flex;
+  flex-direction: column
+}
+
+
 .poll-card {
     max-width: 350px;
     min-height:100px;

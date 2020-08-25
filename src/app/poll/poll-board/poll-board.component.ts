@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PollService } from '../poll.service';
 import { Observable, of, throwError, Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { map, tap, finalize, switchMap, takeUntil } from 'rxjs/operators';
+import { tap, takeUntil } from 'rxjs/operators';
 import { FireBaseService } from 'src/shared-resources/services/firebase.service';
 import { PopupMessageComponent } from 'src/shared-resources/components/pop-up-message/popup-message.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticateService } from 'src/shared-resources/services/authenticate.service';
 
 @Component({
   selector: 'app-poll',
@@ -17,10 +18,11 @@ export class PollBoardComponent implements OnInit {
   pollList$: Observable<any>;
   mockHost = 'alec';
   pollURL: Array<string>;
+  user$: Observable<firebase.User> = this.authUserService.user$;
   private unSubscribe$: Subject<any>;
 
   constructor(private pollService: PollService, private router: Router, private activatedRoute: ActivatedRoute,
-    private fireStore: FireBaseService, private snackBar: MatSnackBar) { }
+    private fireStore: FireBaseService, private snackBar: MatSnackBar, private authUserService: AuthenticateService) { }
 
   ngOnInit(): void {
     this.unSubscribe$ = new Subject();

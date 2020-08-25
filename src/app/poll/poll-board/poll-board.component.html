@@ -1,6 +1,9 @@
-<ng-container>
+<div class="poll-board">
+  <mat-card *ngIf="user$ | async as user">
+    <mat-card-title>Welcome {{user.displayName}}</mat-card-title>
+  </mat-card>
   <div class="poll-layout">
-    <mat-card *ngFor="let poll of pollList$ |async; let i = index" class="poll-card">
+    <mat-card *ngFor=" let poll of pollList$ |async; let i=index" class="poll-card">
       <mat-card-header>
         <mat-card-title>{{poll.title}}</mat-card-title>
         <mat-card-subtitle *ngIf="poll?.description">{{poll.description}}</mat-card-subtitle>
@@ -29,4 +32,4 @@
       </button>
     </mat-card>
   </div>
-</ng-container>
+</div>
