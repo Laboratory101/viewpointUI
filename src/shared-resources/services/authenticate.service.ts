@@ -1,6 +1,6 @@
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import { BehaviorSubject, Observable, from } from 'rxjs';
+import { BehaviorSubject, Observable, from, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 
@@ -14,19 +14,20 @@ export class AuthenticateService {
         .asObservable()
         .pipe(switchMap((user: Observable<firebase.User>) => user));
 
+
     constructor(private afAuth: AngularFireAuth) {
         this.user.next(this.afAuth.authState);
+        // this.afAuth.auth.onAuthStateChanged((data: firebase.User) => this.user.next(of(data)))
     }
 
     loginViaGoogle(): Observable<auth.UserCredential> {
         const provider: auth.GoogleAuthProvider = new auth.GoogleAuthProvider();
-        provider.addScope('profile');
-        provider.addScope('email');
         return from(this.afAuth.auth.signInWithPopup(provider));
     }
 
     logout(): Observable<void> {
         return from(this.afAuth.auth.signOut());
     }
+
 
 }

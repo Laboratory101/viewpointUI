@@ -1,5 +1,5 @@
-<div class="poll-board">
-  <mat-card *ngIf="user$ | async as user">
+<div class="poll-board" *ngIf="user$ | async as user">
+  <mat-card>
     <mat-card-title>Welcome {{user.displayName}}</mat-card-title>
   </mat-card>
   <div class="poll-layout">
