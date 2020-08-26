@@ -1,25 +1,7 @@
-<!-- <mat-toolbar color="primary" class="navbar">
-    <nav><span>View Point</span>
-        <button mat-button aria-label="poll" (click)="navigateTo('poll')">
-            Poll
-        </button>
-    </nav>
-    <nav>
-        <ng-container *ngIf="user$ | async as user; else loginIcon">
-            <button mat-button aria-label="logout" (click)="logout()">
-                <mat-icon>power_settings_new</mat-icon> Log out
-            </button>
-        </ng-container>
-        <ng-template #loginIcon>
-            <button mat-button aria-label="login" (click)="login()">
-                <mat-icon>person_outline</mat-icon> Login
-            </button>
-        </ng-template>
-    </nav>
-</mat-toolbar> -->
 <ng-container *ngIf="user$ | async as user; else login">
     <mat-toolbar color="primary" class="navbar">
-        <nav><span>View Point</span>
+        <nav>
+            <nav><img src="../../../assets/logo.png" class="logo" /></nav>
             <button mat-button aria-label="poll" (click)="navigateTo('poll')">
                 Poll
             </button>
@@ -45,6 +27,6 @@
 </ng-container>
 <ng-template #login>
     <mat-toolbar color="primary">
-        <nav><span>View Point</span></nav>
+        <nav><img src="../../../assets/logo.png" class="logo" /></nav>
     </mat-toolbar>
 </ng-template>

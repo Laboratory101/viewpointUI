@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HostDashbordComponent } from './host-dashbord/host-dashbord.component';
 import { LoginComponent } from './login/login.component';
+import { MaterialModule } from 'src/shared-resources/material.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    MaterialModule
   ]
 })
 export class HostModule { }

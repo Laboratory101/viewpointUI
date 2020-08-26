@@ -1,6 +1,15 @@
-<div class="google-btn" (click)="login()">
-  <div class="google-icon-wrapper">
-    <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-  </div>
-  <p class="btn-text"><b>Sign in with google</b></p>
-</div>
+<mat-card class="login-form centered">
+  <span class="shape"></span>
+  <mat-card-title>
+    <mat-icon>account_circle</mat-icon>
+    <h3>Login with</h3>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="google-btn" (click)="login()">
+      <div class="google-icon-wrapper">
+        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+      </div>
+      <p class="btn-text"><b>Sign in with google</b></p>
+    </div>
+  </mat-card-content>
+</mat-card>
