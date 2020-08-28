@@ -17,6 +17,11 @@
           <mat-label>Title</mat-label>
           <input type="text" matInput formControlName="text" maxlength="50" />
         </mat-form-field>
+        <mat-error>
+          <app-field-error [groupControl]="candidateForm.get('candidates')['controls'][i]"
+            [status]="candidateForm.get('candidates')['controls'][i].invalid">
+          </app-field-error>
+        </mat-error>
         <div>
           <button type="button" mat-raised-button color="primary" (click)="addCandidate()"
             *ngIf="i+1===candidateForm.get('candidates')['controls'].length" style="margin-right: 16px;"

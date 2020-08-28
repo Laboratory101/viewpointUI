@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '', component: HostDashbordComponent, children: [
       { path: 'login', component: LoginComponent },
       { path: 'poll', loadChildren: '../poll/poll.module#PollModule' },
-      { path: '**', redirectTo: '/login' }
+      { path: '**', redirectTo: 'login' }
     ]
   }
 ];

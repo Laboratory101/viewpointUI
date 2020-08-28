@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import { FormGroup, AbstractControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { FormGroup, AbstractControl, Validators, FormBuilder, FormArray, ValidatorFn, ValidationErrors } from '@angular/forms';
 import validator from 'validator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PopupMessageComponent } from 'src/shared-resources/components/pop-up-message/popup-message.component';
@@ -55,7 +55,7 @@ export class PollCandidateComponent implements OnInit, OnDestroy {
         _id: [((data && data._id) ? data._id : createUUID()), Validators.required],
         imgUrl: [((data && data.imgUrl) ? data.imgUrl : null), [this.isURLValid]],
         text: [((data && data.text) ? data.text : ''), [Validators.minLength(1), Validators.maxLength(50)]],
-      }
+      }, { validators: [atLeastOne(Validators.required)], updateOn: 'change' }
     );
     candidateArray.push(newCandidate);
   }
@@ -118,9 +118,17 @@ export class PollCandidateComponent implements OnInit, OnDestroy {
     return null;
   }
 
+
   ngOnDestroy(): void {
     this.unSubscribe$.next();
     this.unSubscribe$.complete();
   }
 
 }
+
+const atLeastOne = (validator: ValidatorFn) => (group: FormGroup): ValidationErrors | null => {
+  if (group && group.controls) {
+    const hasAtLeastOne: Array<string> = Object.keys(group.controls).filter(control => validator(group.get(control)))
+    return hasAtLeastOne.length > 1 ? { atleastOne: true } : null
+  }
+};

@@ -2,7 +2,7 @@
   <div class="title">
     <div>Set up poll</div>
     <div>
-      <button type="submit" mat-raised-button color="primary"
+      <button type="submit" mat-raised-button color="primary" [disabled]="pollForm?.invalid"
         (click)="saveOrEditPoll(buttonOperation)">{{buttonOperation}}</button>
       <button type="reset" mat-raised-button color="warn" style="margin-left: 16px;"
         (click)="goTOPolls()">Close</button>
@@ -13,22 +13,44 @@
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input type="text" matInput placeholder="Poll title" formControlName="title" required />
+        <mat-error>
+          <app-field-error [control]="pollForm.get('title')"
+            [status]="pollForm.get('title').touched && pollForm.get('title').invalid"></app-field-error>
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <input type="text" matInput placeholder="Poll description" formControlName="description" />
+        <input type="text" matInput #description placeholder="Poll description" formControlName="description"
+          maxlength="256" />
+        <mat-hint align="end">{{description.value.length}} / 256</mat-hint>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Author</mat-label>
         <input type="text" matInput formControlName="author" maxlength="100" />
+        <mat-error>
+          <app-field-error [control]="pollForm.get('author')"
+            [status]="pollForm.get('author').touched && pollForm.get('author').invalid">
+          </app-field-error>
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>No of participants</mat-label>
         <input type="number" matInput formControlName="participantCount" min="3" />
+        <mat-error>
+          <app-field-error [control]="pollForm.get('participantCount')"
+            [status]="pollForm.get('participantCount').touched && pollForm.get('participantCount').invalid">
+          </app-field-error>
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Duration</mat-label>
         <input type="number" matInput formControlName="duration" min="1" max="30" />
+        <mat-error>
+          <app-field-error [control]="pollForm.get('duration')"
+            [status]="pollForm.get('duration').touched && pollForm.get('duration').invalid">
+          </app-field-error>
+          <!-- {{pollForm.get('duration').errors | json}} -->
+        </mat-error>
       </mat-form-field>
       <div class="radio-group">
         <div>

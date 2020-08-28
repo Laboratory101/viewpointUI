@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { createUUID } from 'src/shared-resources/services/utility';
+import { createUUID, validateAllFormFields } from 'src/shared-resources/services/utility';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FireBaseService } from 'src/shared-resources/services/firebase.service';
 import { PollService } from '../poll.service';
@@ -32,9 +32,9 @@ export class PollDetailsComponent implements OnInit, OnDestroy {
     this.pollForm = this.formBuilder.group({
       _id: [((!!this.pollData && this.pollData._id) ? this.pollData._id : createUUID()), Validators.required],
       title: [((!!this.pollData && this.pollData.title) ? this.pollData.title : ''), [Validators.required, Validators.maxLength(50)]],
-      description: [((!!this.pollData && this.pollData.description) ? this.pollData.description : '')],
-      participantCount: [((!!this.pollData && this.pollData.participantCount) ? this.pollData.participantCount : 3), [Validators.min(3)]],
-      duration: [((!!this.pollData && this.pollData.duration) ? this.pollData.duration : 7), [Validators.max(30)]],
+      description: [((!!this.pollData && this.pollData.description) ? this.pollData.description : ''), [Validators.maxLength(256)]],
+      participantCount: [((!!this.pollData && this.pollData.participantCount) ? this.pollData.participantCount : 3), [Validators.required, Validators.min(3)]],
+      duration: [((!!this.pollData && this.pollData.duration) ? this.pollData.duration : 7), [Validators.required, Validators.min(1), Validators.max(30)]],
       privacyType: [((!!this.pollData && !!this.pollData.privacyType != null) ? this.pollData.privacyType.toString() : null),
       Validators.required],
       resultDisplayType: [((!!this.pollData && this.pollData.resultDisplayType != null) ? this.pollData.resultDisplayType.toString() : null)
@@ -56,6 +56,7 @@ export class PollDetailsComponent implements OnInit, OnDestroy {
       this.pollForm.enable();
       this.buttonOperation = 'Update';
     } else {
+      validateAllFormFields(this.pollForm)
       this.pollForm.disable();
       const { _id, candidates, participantCount } = this.pollForm.getRawValue();
       if (participantCount < candidates.length) {

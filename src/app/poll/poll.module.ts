@@ -9,16 +9,17 @@ import { PollCandidateComponent } from './poll-candidate/poll-candidate.componen
 import { PollService } from './poll.service';
 import { CopyToClipboardDirective } from 'src/shared-resources/directives/copy-to-clipboard.directive';
 import { AccessGuard } from 'src/shared-resources/services/access-guard';
+import { FieldErrorComponent } from 'src/shared-resources/components/field-error/field-error.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'pollboard', pathMatch: 'full' },
   { path: 'pollboard', component: PollBoardComponent },
-  { path: 'viewpoll', component: PollDetailsComponent, canActivate:[AccessGuard],data:{navigateTo:'/host/poll'} },
+  { path: 'viewpoll', component: PollDetailsComponent, canActivate: [AccessGuard], data: { navigateTo: '/host/poll' } },
   { path: '**', redirectTo: '/pollboard' }
 ];
 
 @NgModule({
-  declarations: [PollBoardComponent, PollDetailsComponent, PollCandidateComponent, CopyToClipboardDirective],
+  declarations: [PollBoardComponent, PollDetailsComponent, PollCandidateComponent, FieldErrorComponent, CopyToClipboardDirective],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
