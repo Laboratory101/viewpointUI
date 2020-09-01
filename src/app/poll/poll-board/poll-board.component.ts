@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PollService } from '../poll.service';
 import { Observable, of, throwError, Subject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { tap, takeUntil } from 'rxjs/operators';
+import { tap, takeUntil, switchMap } from 'rxjs/operators';
 import { FireBaseService } from 'src/shared-resources/services/firebase.service';
 import { PopupMessageComponent } from 'src/shared-resources/components/pop-up-message/popup-message.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,18 +27,32 @@ export class PollBoardComponent implements OnInit {
   ngOnInit(): void {
     this.unSubscribe$ = new Subject();
     this.pollURL = [];
-    this.pollList$ = this.pollService.fetchAllPolls(this.mockHost).pipe(takeUntil(this.unSubscribe$),
-      tap(pollData => pollData.forEach((poll: any, index: number) => {
-        const url: string = `URL: ${window.location.origin}/participate?type=poll&id=${poll._id}`;
-        if (poll.privacyType === 1) {
-          const password: string = `Password: ${poll.pin}`
-          this.pollURL[index] = url.concat(`\n`, password)
-        } else {
-          this.pollURL[index] = url
+    // this.pollList$ = this.pollService.fetchAllPolls(this.mockHost).pipe(takeUntil(this.unSubscribe$),
+    //   tap(pollData => pollData.forEach((poll: any, index: number) => {
+    //     const url: string = `URL: ${window.location.origin}/participate?type=poll&id=${poll._id}`;
+    //     if (poll.privacyType === 1) {
+    //       const password: string = `Password: ${poll.pin}`
+    //       this.pollURL[index] = url.concat(`\n`, password)
+    //     } else {
+    //       this.pollURL[index] = url
+    //     }
+    //   }
+    //   ))
+    // );
+    this.pollList$ = this.user$.pipe(tap(console.log), switchMap((auth: any) => this.pollService.fetchAllPolls(auth.providerData[0].email)
+      .pipe(takeUntil(this.unSubscribe$),
+        tap(pollData => pollData.forEach((poll: any, index: number) => {
+          const url: string = `URL: ${window.location.origin}/participate?type=poll&id=${poll._id}`;
+          if (poll.privacyType === 1) {
+            const password: string = `Password: ${poll.pin}`
+            this.pollURL[index] = url.concat(`\n`, password)
+          } else {
+            this.pollURL[index] = url
+          }
         }
-      }
+        ))
       ))
-    );
+    )
   }
 
   getPollInfo(pollData?: any): void {
