@@ -22,7 +22,6 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.authUserService.logout().subscribe()
   }
 
 }

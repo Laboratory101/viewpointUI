@@ -13,7 +13,7 @@ import { FieldErrorComponent } from 'src/shared-resources/components/field-error
 
 const routes: Routes = [
   { path: '', redirectTo: 'pollboard', pathMatch: 'full' },
-  { path: 'pollboard', component: PollBoardComponent },
+  { path: 'pollboard', component: PollBoardComponent, canActivate: [AccessGuard], data: { navigateTo: '/host/poll' } },
   { path: 'viewpoll', component: PollDetailsComponent, canActivate: [AccessGuard], data: { navigateTo: '/host/poll' } },
   { path: '**', redirectTo: '/pollboard' }
 ];

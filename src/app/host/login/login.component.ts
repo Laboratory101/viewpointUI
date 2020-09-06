@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
       return this.authTokenService.getAuthToken(payload)
     })).subscribe(response => {
       sessionStorage.setItem('accessToken', response.accessToken)
+      sessionStorage.setItem('refreshToken', response.refreshToken)
       window.location.href = `${window.location.origin}/host/poll`;
     }, () => {
       this.snackBar.openFromComponent(PopupMessageComponent, {

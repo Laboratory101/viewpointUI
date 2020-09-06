@@ -15,11 +15,14 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.loaderService.display(true);
-        req = req.clone({
-            setHeaders: {
-                Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`
-            }
-        });
+        const pattern = new RegExp(/participate/, 'ig')
+        if (!pattern.test(req.url)) {
+            req = req.clone({
+                setHeaders: {
+                    Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`
+                }
+            });
+        }
         return next.handle(req).pipe(tap(event => {
             if (event instanceof HttpResponse) {
                 this.loaderService.display(false);

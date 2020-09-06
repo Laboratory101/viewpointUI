@@ -1,10 +1,10 @@
 <ng-container *ngIf="user$ | async as user; else login">
     <mat-toolbar color="primary" class="navbar">
+        <nav><img src="../../../assets/logo.png" class="logo" /></nav>
         <nav>
-            <nav><img src="../../../assets/logo.png" class="logo" /></nav>
-            <!-- <button mat-button aria-label="poll" (click)="navigateTo('poll')">
+            <button mat-button aria-label="poll" (click)="navigateTo('poll')">
                 Poll
-            </button> -->
+            </button>
         </nav>
         <nav>
             <button mat-mini-fab color="primary" class="avatar-button" [matMenuTriggerFor]="beforeMenu">
