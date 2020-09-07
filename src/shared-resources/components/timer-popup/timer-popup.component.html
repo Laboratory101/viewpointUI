@@ -1,0 +1,5 @@
+<mat-card class="idle-timout-card">
+  Your Session is going to expire in <strong>{{--timer}}</strong>
+  <button button mat-raised-button color="primary" class="right-margin" (click)="shouldReset(true)">Reset</button>
+  <button button mat-raised-button color="warn" (click)="shouldReset(false)">Logout</button>
+</mat-card>

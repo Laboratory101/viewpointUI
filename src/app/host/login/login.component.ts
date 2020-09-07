@@ -12,10 +12,10 @@ import { AuthorizationService } from 'src/shared-resources/services/authorizatio
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authUserService: AuthenticateService, private snackBar: MatSnackBar, private authTokenService: AuthorizationService) { }
+  constructor(private authUserService: AuthenticateService, private snackBar: MatSnackBar,
+    private authTokenService: AuthorizationService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   login() {
     this.authUserService.loginViaGoogle().pipe(first(), switchMap(auth => {

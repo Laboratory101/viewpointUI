@@ -14,20 +14,23 @@ import { HttpInterceptorService } from '../shared-resources/services/http-interc
 import { PopupMessageComponent } from '../shared-resources/components/pop-up-message/popup-message.component';
 import { ConfirmationBoxComponent } from '../shared-resources/components/confirmation-box/confirmation-box.component';
 
+import { UserIdleModule } from 'angular-user-idle';
+import { TimerPopupComponent } from '../shared-resources/components/timer-popup/timer-popup.component';
 
 @NgModule({
   declarations: [
-    AppComponent, NavBarComponent, PopupMessageComponent, ConfirmationBoxComponent
+    AppComponent, NavBarComponent, PopupMessageComponent, ConfirmationBoxComponent, TimerPopupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule, MaterialModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireStorageModule, AngularFireAuthModule
+    AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireStorageModule, AngularFireAuthModule,
+    UserIdleModule.forRoot({ idle: 600, timeout: 61, ping: 1500 })
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
-  entryComponents: [PopupMessageComponent, ConfirmationBoxComponent],
+  entryComponents: [PopupMessageComponent, ConfirmationBoxComponent, TimerPopupComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
