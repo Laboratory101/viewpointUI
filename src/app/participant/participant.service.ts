@@ -11,4 +11,8 @@ export class ParticipantService {
   castVote(vote: any): Observable<any> {
     return this.http.post(`${environment.apiURL}/participate/vote`, vote);
   }
+
+  fetchPoll(pollData: any): Observable<any> {
+    return this.http.post(`${environment.apiURL}/participate/poll`, pollData);
+  }
 }

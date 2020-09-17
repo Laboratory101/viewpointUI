@@ -5,6 +5,7 @@ import { HostDashbordComponent } from './host-dashbord/host-dashbord.component';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from 'src/shared-resources/material.module';
 import { AccessGuard } from 'src/shared-resources/services/access-guard';
+import { TimerPopupComponent } from 'src/shared-resources/components/timer-popup/timer-popup.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HostDashbordComponent, LoginComponent],
+  declarations: [HostDashbordComponent, LoginComponent, TimerPopupComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

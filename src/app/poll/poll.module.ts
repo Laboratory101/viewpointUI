@@ -10,22 +10,23 @@ import { PollService } from './poll.service';
 import { CopyToClipboardDirective } from 'src/shared-resources/directives/copy-to-clipboard.directive';
 import { AccessGuard } from 'src/shared-resources/services/access-guard';
 import { FieldErrorComponent } from 'src/shared-resources/components/field-error/field-error.component';
+import { SharedModule } from 'src/shared-resources/shared.module';
 
 const routes: Routes = [
   { path: '', redirectTo: 'pollboard', pathMatch: 'full' },
-  { path: 'pollboard', component: PollBoardComponent, canActivate: [AccessGuard], data: { navigateTo: '/host/poll' } },
-  { path: 'viewpoll', component: PollDetailsComponent, canActivate: [AccessGuard], data: { navigateTo: '/host/poll' } },
+  { path: 'pollboard', component: PollBoardComponent, canActivate: [AccessGuard], data: { navigateTo: '/host/login' } },
+  { path: 'viewpoll', component: PollDetailsComponent, canActivate: [AccessGuard], data: { navigateTo: '/host/login' } },
   { path: '**', redirectTo: '/pollboard' }
 ];
 
 @NgModule({
-  declarations: [PollBoardComponent, PollDetailsComponent, PollCandidateComponent, FieldErrorComponent, CopyToClipboardDirective],
+  declarations: [PollBoardComponent, PollDetailsComponent, PollCandidateComponent, FieldErrorComponent,
+    CopyToClipboardDirective],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MaterialModule, ReactiveFormsModule, FormsModule
+    MaterialModule, ReactiveFormsModule, FormsModule, SharedModule
   ],
-  providers: [PollService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [PollService]
 })
 export class PollModule { }

@@ -1,1 +1,5 @@
 <router-outlet></router-outlet>
+
+<div class="session-popup-overlay" *ngIf="displayTimer">
+    <timer-popup [timer]="timerValue" (userAction)="extendSession($event)"></timer-popup>
+</div>

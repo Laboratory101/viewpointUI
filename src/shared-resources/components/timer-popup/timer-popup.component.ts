@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-timer-popup',
+  selector: 'timer-popup',
   templateUrl: './timer-popup.component.html',
   styleUrls: ['./timer-popup.component.scss']
 })
-export class TimerPopupComponent implements OnInit {
+export class TimerPopupComponent implements OnInit, OnChanges {
 
-  timer: number;
+  value: number;
 
-  constructor(private dialogRef: MatDialogRef<TimerPopupComponent>) { }
+  @Input() timer: number;
+  @Output() readonly userAction: EventEmitter<boolean> = new EventEmitter<boolean>()
 
-  ngOnInit(): void {
-    this.timer = 60;
+  constructor() { }
+
+  ngOnInit(): void { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.timer && this.timer) {
+      this.value = (60 - this.timer)
+    }
   }
 
   shouldReset(status: boolean) {
-    this.dialogRef.close(status);
+    this.userAction.emit(status);
   }
 }

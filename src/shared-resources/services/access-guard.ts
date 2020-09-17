@@ -7,7 +7,12 @@ export class AccessGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
-        if (!sessionStorage.getItem('accessToken')) {
+        const pattern = new RegExp(/participate/);
+        if (this.router.url === '/') {
+            console.log("Direct entry");
+            return this.router.parseUrl(route.data.navigateTo)
+        }
+        else if (!pattern.test(this.router.url) && !sessionStorage.getItem('accessToken')) {
             console.log("Invalid")
             return this.router.parseUrl(route.data.navigateTo)
         }

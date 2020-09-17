@@ -8,7 +8,7 @@ import { PollService } from '../poll/poll.service';
 import { CastVoteComponent } from './cast-vote/cast-vote.component';
 import { ParticipantService } from './participant.service';
 import { AccessGuard } from 'src/shared-resources/services/access-guard';
-import { BarChartComponent } from 'src/shared-resources/components/bar-chart/bar-chart.component';
+import { SharedModule } from 'src/shared-resources/shared.module';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -17,11 +17,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [CastVoteComponent, LoginComponent, BarChartComponent],
+  declarations: [CastVoteComponent, LoginComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MaterialModule, FormsModule
+    MaterialModule, FormsModule, SharedModule
   ],
   providers: [PollService, ParticipantService],
 })

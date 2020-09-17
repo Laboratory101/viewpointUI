@@ -14,7 +14,7 @@
         <button mat-button matTooltip="Poll information" (click)="getPollInfo(poll)">
           <mat-icon aria-hidden="false" aria-label="info" color="primary">info</mat-icon>
         </button>
-        <button mat-button matTooltip="Poll results">
+        <button mat-button matTooltip="Poll results" (click)="displayResult(poll)">
           <mat-icon aria-hidden="false" aria-label="result" color="primary">poll</mat-icon>
         </button>
         <button mat-button matTooltip="Copy poll URL" [copyToClipboard]="pollURL[i]">

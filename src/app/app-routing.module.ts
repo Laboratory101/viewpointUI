@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: 'host', loadChildren: './host/host.module#HostModule' },
-  { path: 'participate', loadChildren: './participant/participant.module#ParticipantModule' }
+  { path: 'participate', loadChildren: './participant/participant.module#ParticipantModule' },
+  { path: '**', redirectTo: 'host' }
 ];
 
 @NgModule({

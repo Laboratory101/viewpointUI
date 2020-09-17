@@ -3,7 +3,6 @@ import {
   MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatProgressSpinnerModule,
   MatSnackBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatInputModule, MatDialogModule, MatMenuModule, MatDividerModule
 } from '@angular/material';
-import { ChartsModule, WavesModule } from 'angular-bootstrap-md'
 
 
 @NgModule({
@@ -11,7 +10,7 @@ import { ChartsModule, WavesModule } from 'angular-bootstrap-md'
   exports: [
     MatButtonModule, MatCardModule, MatIconModule, MatToolbarModule, MatProgressSpinnerModule,
     MatSnackBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatInputModule,
-    MatDialogModule, MatMenuModule, MatDividerModule, ChartsModule, WavesModule
+    MatDialogModule, MatMenuModule, MatDividerModule
   ]
 })
 export class MaterialModule { }

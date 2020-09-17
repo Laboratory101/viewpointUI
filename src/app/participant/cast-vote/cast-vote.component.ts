@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ParticipantService } from '../participant.service';
 import { PopupMessageComponent } from 'src/shared-resources/components/pop-up-message/popup-message.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { addDays } from 'src/shared-resources/services/utility';
+import { addDays, generateChartData } from 'src/shared-resources/services/utility';
 import { WebsocketService } from 'src/shared-resources/services/websocket.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -42,13 +42,13 @@ export class CastVoteComponent implements OnInit, OnDestroy {
       this.defaultURL = 'assets/no_img.webp';
       this.resultIn = addDays(createdAt, duration).toDateString();
       this.statusTitle = (resultDisplayType === 1) ? 'Ends on' : 'Result on'
-      this.chartData = [...this.generateChartData(candidates, resultDisplayType)];
+      this.chartData = [...generateChartData(candidates, resultDisplayType)];
     }
     if (resultDisplayType === 1) {
       this.socketService.joinRoom(_id);
     }
     this.socketService.broadcastMessage().pipe(takeUntil(this.unSubscribe$)).subscribe(pollData => {
-      this.chartData = [...this.generateChartData(pollData, resultDisplayType)];
+      this.chartData = [...generateChartData(pollData, resultDisplayType)];
     })
   }
 
@@ -72,12 +72,12 @@ export class CastVoteComponent implements OnInit, OnDestroy {
     })
   }
 
-  private generateChartData(dataSource: Array<any>, displayType: number): Array<{ label: string, value: number }> {
-    return dataSource.map((data: any, index: number) => ({
-      label: data.text || `Cndt ${index}`,
-      value: (displayType === 1) ? data.count : 0
-    }));
-  }
+  // private generateChartData(dataSource: Array<any>, displayType: number): Array<{ label: string, value: number }> {
+  //   return dataSource.map((data: any, index: number) => ({
+  //     label: data.text || `Cndt ${index}`,
+  //     value: (displayType === 1) ? data.count : 0
+  //   }));
+  // }
 
   ngOnDestroy(): void {
     this.unSubscribe$.next();

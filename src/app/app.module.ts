@@ -15,11 +15,12 @@ import { PopupMessageComponent } from '../shared-resources/components/pop-up-mes
 import { ConfirmationBoxComponent } from '../shared-resources/components/confirmation-box/confirmation-box.component';
 
 import { UserIdleModule } from 'angular-user-idle';
-import { TimerPopupComponent } from '../shared-resources/components/timer-popup/timer-popup.component';
+// import { BarChartComponent } from 'src/shared-resources/components/bar-chart/bar-chart.component';
+// import { PollResultComponent } from 'src/shared-resources/components/poll-result/poll-result.component';
 
 @NgModule({
   declarations: [
-    AppComponent, NavBarComponent, PopupMessageComponent, ConfirmationBoxComponent, TimerPopupComponent
+    AppComponent, NavBarComponent, PopupMessageComponent, ConfirmationBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -27,10 +28,10 @@ import { TimerPopupComponent } from '../shared-resources/components/timer-popup/
     BrowserAnimationsModule,
     HttpClientModule, MaterialModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireStorageModule, AngularFireAuthModule,
-    UserIdleModule.forRoot({ idle: 600, timeout: 61, ping: 1500 })
+    UserIdleModule.forRoot({ idle: 600, timeout: 60, ping: 1500 })
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
-  entryComponents: [PopupMessageComponent, ConfirmationBoxComponent, TimerPopupComponent],
+  entryComponents: [PopupMessageComponent, ConfirmationBoxComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
