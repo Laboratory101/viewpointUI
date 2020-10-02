@@ -11,6 +11,7 @@ import { CopyToClipboardDirective } from 'src/shared-resources/directives/copy-t
 import { AccessGuard } from 'src/shared-resources/services/access-guard';
 import { FieldErrorComponent } from 'src/shared-resources/components/field-error/field-error.component';
 import { SharedModule } from 'src/shared-resources/shared.module';
+import { PollResultComponent } from './poll-result/poll-result.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'pollboard', pathMatch: 'full' },
@@ -21,7 +22,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [PollBoardComponent, PollDetailsComponent, PollCandidateComponent, FieldErrorComponent,
-    CopyToClipboardDirective],
+    CopyToClipboardDirective,
+    PollResultComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

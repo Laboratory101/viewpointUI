@@ -16,12 +16,9 @@ export class CastVoteComponent implements OnInit, OnDestroy {
 
   pollData: any;
   defaultURL: string;
-  resultIn: string;
   isSelected: { status: boolean, ref: number };
   selectedCandidate: string;
   disableVote: boolean;
-  statusTitle: string
-  chartData: Array<{ label: string, value: number }>;
   displayResult: boolean;
 
   private unSubscribe$: Subject<any>;
@@ -30,26 +27,18 @@ export class CastVoteComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.unSubscribe$ = new Subject();
-    this.displayResult = false;
+    this.defaultURL = 'assets/no_img.webp';
+    this.disableVote = false;
+    this.isSelected = { status: false, ref: null };
     this.pollData = { ...window.history.state };
-    const { createdAt, duration, resultDisplayType, candidates, _id } = this.pollData;
+    const { createdAt, duration } = this.pollData;
     const today: number = new Date().getTime();
     const expire: Date = addDays(createdAt, duration)
     if (today >= expire.getTime()) {
+      this.displayResult = true
     } else {
-      this.disableVote = false;
-      this.isSelected = { status: false, ref: null };
-      this.defaultURL = 'assets/no_img.webp';
-      this.resultIn = addDays(createdAt, duration).toDateString();
-      this.statusTitle = (resultDisplayType === 1) ? 'Ends on' : 'Result on'
-      this.chartData = [...generateChartData(candidates, resultDisplayType)];
+      this.displayResult = false;
     }
-    if (resultDisplayType === 1) {
-      this.socketService.joinRoom(_id);
-    }
-    this.socketService.broadcastMessage().pipe(takeUntil(this.unSubscribe$)).subscribe(pollData => {
-      this.chartData = [...generateChartData(pollData, resultDisplayType)];
-    })
   }
 
   selectCandidate(candidateId: string, index: number): void {
@@ -71,13 +60,6 @@ export class CastVoteComponent implements OnInit, OnDestroy {
       });
     })
   }
-
-  // private generateChartData(dataSource: Array<any>, displayType: number): Array<{ label: string, value: number }> {
-  //   return dataSource.map((data: any, index: number) => ({
-  //     label: data.text || `Cndt ${index}`,
-  //     value: (displayType === 1) ? data.count : 0
-  //   }));
-  // }
 
   ngOnDestroy(): void {
     this.unSubscribe$.next();

@@ -1,0 +1,16 @@
+.mat-card-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    .status{
+        border: 2px groove;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 20%;
+    }
+}

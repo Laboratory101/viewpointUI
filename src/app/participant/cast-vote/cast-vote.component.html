@@ -19,38 +19,14 @@
       </fieldset>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="castVote()" class="vote" [disabled]="disableVote">Submit</button>
+      <button mat-raised-button color="primary" (click)="castVote()" class="vote"
+        [disabled]="disableVote">Submit</button>
     </mat-card-actions>
   </mat-card>
   <div class="stat-screen">
-    <mat-card>
-      <mat-card-content>
-        <div class="status" *ngIf="pollData.resultDisplayType===1">
-          <span>Live</span>
-          <mat-icon style="color: green;">stop_circle</mat-icon>
-        </div>
-        <div style="font-size: 24px;">
-          <span>{{statusTitle}}: {{resultIn}}</span>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>Result</mat-card-title>
-      <mat-card-content>
-        <bar-chart [displayData]="chartData" [ngStyle]="{'opacity':(pollData.resultDisplayType===0)?'25%':'unset'}">
-        </bar-chart>
-      </mat-card-content>
-      <mat-card-footer></mat-card-footer>
-    </mat-card>
+    <app-poll-result widget='true' [pollData]='pollData'></app-poll-result>
   </div>
 </div>
 <ng-template #result>
-  <mat-card>
-    <mat-card-title>Result</mat-card-title>
-    <mat-card-content>
-      <bar-chart [displayData]="chartData">
-      </bar-chart>
-    </mat-card-content>
-    <mat-card-footer style="font-size: 24px;">Poll ended on {{resultIn}}</mat-card-footer>
-  </mat-card>
+  <app-poll-result widget='false' [pollData]='pollData'></app-poll-result>
 </ng-template>

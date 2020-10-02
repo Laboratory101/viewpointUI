@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-header *ngIf='!widget'>
+    <mat-card-title>
+      <div>{{pollData.title}}</div>
+      <button (click)='close()'>Back</button>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <div>{{pollData.description}}</div>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="status" *ngIf="pollData.resultDisplayType===1">
+      <span>Live</span>
+      <mat-icon style="color: green;">stop_circle</mat-icon>
+    </div>
+    <div style="font-size: 24px;">
+      <span>{{statusTitle}}: {{resultIn}}</span>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <mat-card-title>Result</mat-card-title>
+  <mat-card-content>
+    <bar-chart [displayData]="chartData" [ngStyle]="{'opacity':(pollData.resultDisplayType===0)?'25%':'unset'}">
+    </bar-chart>
+  </mat-card-content>
+  <mat-card-footer>
+    <div>
+      <h5>Number of participants: {{participantCount}}</h5>
+    </div>
+    <div>
+      <h5>{{math.floor((participantCount/pollData.participantCount)*100)}}%</h5>
+    </div>
+  </mat-card-footer>
+</mat-card>

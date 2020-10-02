@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title>Welcome {{user.displayName}}</mat-card-title>
   </mat-card>
-  <div class="poll-layout">
+  <div class="poll-layout" *ngIf="!showResult; else result">
     <mat-card *ngFor=" let poll of pollList$ |async; let i=index" class="poll-card">
       <mat-card-header>
         <mat-card-title>{{poll.title}}</mat-card-title>
@@ -32,4 +32,7 @@
       </button>
     </mat-card>
   </div>
+  <ng-template #result>
+    <app-poll-result [pollData]="selectedPoll" (closeResult)="close($event)"></app-poll-result>
+  </ng-template>
 </div>
