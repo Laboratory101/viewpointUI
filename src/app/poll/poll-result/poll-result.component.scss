@@ -1,16 +1,17 @@
-.mat-card-content{
+
+.status{
+    border: 2px groove;
+    border-radius: 12px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    width: 20%;
+}
 
-    .status{
-        border: 2px groove;
-        border-radius: 12px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        width: 20%;
-    }
+
+.participant-stat{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }

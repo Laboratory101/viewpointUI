@@ -6,7 +6,10 @@
 
 .poll-board{
   display: flex;
-  flex-direction: column
+  flex-direction: column;
+  padding:2%;
+  overflow: auto;
+  height: 82vh;
 }
 
 
@@ -37,4 +40,8 @@
   .action-button{
     position: absolute;
     bottom: 15%;
+  }
+
+  .poll-result{
+    margin-top:2%;
   }

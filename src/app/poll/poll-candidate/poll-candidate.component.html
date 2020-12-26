@@ -11,7 +11,7 @@
           <mat-icon aria-hidden="false" aria-label="Upload image" class="centered">add_photo_alternate</mat-icon>
           <img [src]="imageSrc[i]" *ngIf="imageSrc[i]" alt="Poll candidate image" (error)="setDefaultPic(i)" />
           <input hidden type="file" #fileInput id="fileInput" (change)="parentForm.enabled;uploadFile($event,i)"
-            accept='image/*' />
+            accept='*.csv' />
         </div>
         <mat-form-field>
           <mat-label>Title</mat-label>

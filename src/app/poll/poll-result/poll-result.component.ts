@@ -26,7 +26,9 @@ export class PollResultComponent implements OnInit, OnDestroy {
   constructor(private socketService: WebsocketService) { }
 
   ngOnInit() {
+    console.log("Called")
     this.unSubscribe$ = new Subject<void>();
+    this.participantCount = 0;
     const { createdAt, duration, resultDisplayType, candidates, _id } = this.pollData;
     this.resultIn = addDays(createdAt, duration).toDateString();
     if (resultDisplayType === 1) {
@@ -48,6 +50,7 @@ export class PollResultComponent implements OnInit, OnDestroy {
   }
 
   private getParticipantCount(voteData: Array<any>): number {
+    console.log("Vote data: ",voteData)
     return voteData.reduce((accumulator, currentValue) => accumulator + currentValue.count, 0)
   }
 
