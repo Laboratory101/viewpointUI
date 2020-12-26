@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { PollResultComponent } from 'src/app/poll/poll-result/poll-result.component';
 
 @NgModule({
-    imports: [ChartsModule, WavesModule, MaterialModule, CommonModule, PollResultComponent],
-    declarations: [BarChartComponent],
+    imports: [ChartsModule, WavesModule, MaterialModule, CommonModule],
+    declarations: [BarChartComponent,PollResultComponent],
     exports: [BarChartComponent, ChartsModule, WavesModule, PollResultComponent],
 })
 export class SharedModule { }
