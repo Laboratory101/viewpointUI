@@ -3,10 +3,11 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { ChartsModule, WavesModule } from 'angular-bootstrap-md'
 import { MaterialModule } from './material.module';
 import { CommonModule } from '@angular/common';
+import { PollResultComponent } from 'src/app/poll/poll-result/poll-result.component';
 
 @NgModule({
-    imports: [ChartsModule, WavesModule, MaterialModule, CommonModule],
+    imports: [ChartsModule, WavesModule, MaterialModule, CommonModule, PollResultComponent],
     declarations: [BarChartComponent],
-    exports: [BarChartComponent, ChartsModule, WavesModule],
+    exports: [BarChartComponent, ChartsModule, WavesModule, PollResultComponent],
 })
 export class SharedModule { }
